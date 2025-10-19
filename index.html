@@ -1,60 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Disha’s Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disha’s Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div class="container">
-        <p class="intro">Welcome to My </p>
-        <h3 class="title">Portfolio</h3>
-        
+  <div class="container">
+    <p class="intro">welcome to my </p>
 
+    <h1 class="curved-title">
+      <span>P</span><span>O</span><span>R</span><span>T</span><span>F</span><span>O</span><span>L</span><span>I</span><span>O</span>
+    </h1>
 
-        <div class="labels">
-            <span class="label top-left">Contact</span>
-            <span class="label top-right">Artworks and more</span>
-            <span class="label bottom-left">More About Me</span>
-            <span class="label bottom-right">Certifications & Experience</span>
-            <span class="label center-eight">Projects</span> 
-            
-
-        </div>
+    <div class="labels">
+      <span class="label top-left">Contact</span>
+      <span class="label top-right">Artworks & More</span>
+      <span class="label bottom-left" id="more-about-me">More About Me</span>
+      <span class="label bottom-right">Certifications</span>
+      <span class="label center-bottom">Projects</span>
     </div>
-    
-    
+  </div>
 
-    <div class="social-icons">
-        <a href="#" class="icon-link" aria-label="GitHub">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.744.084-.689.084-.689 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.304.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.006.404 2.291-1.552 3.319-1.23 3.319-1.23.653 1.653.242 2.874.118 3.176.772.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.474 5.923.433.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-        <a href="#" class="icon-link" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        </a>
-        <a href="#" class="icon-link" aria-label="Art Page">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18.8 1.48L15.68 4.6l-.88 5.76c-.05.3-.1.57-.15.84s-.06.5-.06.75l1.64 1.64 4.8-4.8c.8-.8.8-2.08 0-2.88l-2.4-2.4c-.8-.8-2.08-.8-2.88 0zm-14.8 19.52c-1.1 0-2-.9-2-2v-14c0-1.1.9-2 2-2h8.56c.15 0 .28.05.4.17l3.2 3.2c.1.12.17.25.17.4v7.46l-4 4.02-4 4.02c-.8.8-2.08.8-2.88 0zM12.44 9.5l-4-4.02v8.56l4 4.02 4.02-4.02V9.5z"/></svg>
-        </a>
-    </div>
+  <!-- SOCIAL ICONS -->
+  <div class="social-icons">
+    <!-- GitHub -->
+    <a href="#" class="icon-link" aria-label="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24">
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302..."/>
+      </svg>
+    </a>
 
-    <script src="script.js"></script> 
-</body>
-</html>
-    
-    <div class="social-icons">
-        <a href="#" class="icon-link" aria-label="GitHub">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.744.084-.689.084-.689 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.304.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.006.404 2.291-1.552 3.319-1.23 3.319-1.23.653 1.653.242 2.874.118 3.176.772.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.474 5.923.433.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-        <a href="#" class="icon-link" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        </a>
-        <a href="#" class="icon-link" aria-label="Art Page">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18.8 1.48L15.68 4.6l-.88 5.76c-.05.3-.1.57-.15.84s-.06.5-.06.75l1.64 1.64 4.8-4.8c.8-.8.8-2.08 0-2.88l-2.4-2.4c-.8-.8-2.08-.8-2.88 0zm-14.8 19.52c-1.1 0-2-.9-2-2v-14c0-1.1.9-2 2-2h8.56c.15 0 .28.05.4.17l3.2 3.2c.1.12.17.25.17.4v7.46l-4 4.02-4 4.02c-.8.8-2.08.8-2.88 0zM12.44 9.5l-4-4.02v8.56l4 4.02 4.02-4.02V9.5z"/></svg>
-        </a>
-    </div>
+    <!-- LinkedIn -->
+    <a href="#" class="icon-link" aria-label="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24">
+        <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761..."/>
+      </svg>
+    </a>
 
-    <script src="script.js"></script> 
+    <!-- Instagram -->
+    <a href="#" class="icon-link" aria-label="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85..."/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- JS for popup -->
+  <script>
+    const moreAboutMeBtn = document.getElementById('more-about-me');
+
+    moreAboutMeBtn.addEventListener('click', () => {
+      const width = window.innerWidth / 3;
+      const height = window.innerHeight / 2;
+      const left = (window.innerWidth - width) / 2;
+      const top = (window.innerHeight - height) / 2;
+
+      window.open(
+        'moreaboutme.html',
+        'MoreAboutMe',
+        `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
+      );
+    });
+  </script>
+
 </body>
 </html>

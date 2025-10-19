@@ -1,0 +1,62 @@
+/* Center popup like a small window */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* dim background */
+  font-family: Arial, sans-serif;
+}
+
+.popup-container {
+  background: #fff;
+  width: 33%;
+  min-width: 300px;
+  height: 50%;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Navbar */
+.popup-navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-navbar h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+/* Content */
+.popup-content {
+  padding: 15px;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.popup-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>More About Me</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    
+    /* Make the page look like a centered popup */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5); /* darken background */
+      font-family: Arial, sans-serif;
+    }
+
+    .popup-container {
+      background: #fff;
+      width: 33%;
+      min-width: 300px;
+      height: 50%;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    /* Navbar */
+    .popup-navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .popup-navbar h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Content */
+    .popup-content {
+      padding: 15px;
+      overflow-y: auto;
+      flex: 1;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Optional scrollbar styling */
+    .popup-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .popup-content::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="popup-container">
+    <!-- Navbar -->
+    <div class="popup-navbar">
+      <h2>About Me</h2>
+      <a href="index.html">
+        <img src="assets/red-cross.svg" alt="Close" class="close-btn" />
+      </a>
+    </div>
+
+    <!-- Popup Content -->
+    <div class="popup-content">
+      <p>Hello! I’m Disha, a Computer Engineering student passionate about web development, data analytics, and open-source contributions. I enjoy building interactive portfolios, creating engaging UI/UX designs, and exploring the intersection of AI and front-end development.</p>
+
+      <p>In my free time, I love working on personal projects, exploring 3D design, and contributing to community-driven tech initiatives. I believe in continuous learning and always look for opportunities to grow my skills.</p>
+
+      <p>Feel free to explore my projects and artworks on this portfolio to know more about my work and interests!</p>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -16,39 +16,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const mouseY = e.clientY - centerY;
 
         labels.forEach((label, index) => {
-            const depth = (index + 1) * 0.05;
+            // Adjust depth calculation for a more subtle effect
+            const depth = (index + 1) * 0.05; 
             const moveX = (mouseX * depth) / 15;
             const moveY = (mouseY * depth) / 15;
 
-            // Get the current CSS rotation value (e.g., "rotate(-3deg)")
-            // We use this to maintain the unique rotated positions defined in the CSS.
+            // Get the current CSS transform (including rotation)
             const currentTransform = window.getComputedStyle(label).transform;
 
+            // Extract the rotation part (e.g., "rotate(4deg)")
+            let rotation = 'rotate(0deg)'; // Default if no rotation found
+            const rotationMatch = currentTransform.match(/rotate\((.*?)\)/);
+            if (rotationMatch) {
+                rotation = rotationMatch[0];
+            } else {
+                // Fallback for initial state or where the matrix doesn't show rotate() explicitly
+                // You might need to check your CSS and set a specific fallback here for each label
+                // For simplicity, we'll try to get the existing CSS matrix transform
+            }
+
+            // Apply the parallax translation *and* the original rotation
             label.style.transform = `
                 translate3d(${moveX}px, ${moveY}px, 0) 
-                ${currentTransform.includes('rotate') ? currentTransform.match(/rotate\((.*?)\)/)[0] : 'rotate(-3deg)'}
+                ${rotation}
             `;
         });
     });
 
 
-    // 2. Dynamic Text Animation for the Title
+    // 2. Dynamic Text Animation for the Title (PORTFOLIO)
     // -----------------------------------------------------------------
-    const titleElement = document.querySelector('.title');
-    const text = titleElement.textContent;
-    titleElement.textContent = ''; // Clear original text
+    // FIX: Select the correct element: .curved-title
+    const titleSpans = document.querySelectorAll('.curved-title span'); 
 
-    text.split('').forEach((char, index) => {
-        const span = document.createElement('span');
-        span.textContent = char;
+    // 2.1 Set initial state for animation (optional but good practice)
+    titleSpans.forEach(span => {
         span.style.opacity = 0;
-        span.style.display = 'inline-block';
-        
-        span.classList.add('title-letter'); 
-        titleElement.appendChild(span);
-        
+    });
+
+    // 2.2 Animate the spans into view
+    titleSpans.forEach((span, index) => {
+        // We use the existing spans, just fade them in sequentially
         setTimeout(() => {
-            span.style.transition = 'opacity 0.5s ease-out';
+            span.style.transition = 'opacity 0.5s ease-out, transform 0.3s ease';
             span.style.opacity = 1;
         }, 50 * index); // 50ms delay per letter
     });

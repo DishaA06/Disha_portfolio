@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@400;600;900&display=swap');
 
 * {
     margin: 0;
@@ -7,265 +7,184 @@
 }
 
 body {
-    /* Existing Tie-Dye Gradient Background */
-    background: 
-        /* NEW: Grid lines background layer */
-        linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 5px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 5px),
-        /* Existing tie-dye gradient */
-        linear-gradient(
-            135deg, 
-            #ff9a9e 0%, 
-            #fad0c4 25%, 
-            #c26db4 50%, 
-            #a18cd1 75%, 
-            #fbc2eb 100%
-        );
-    
-    background-size: 
-        50px 50px, /* Size of the grid cells (horizontal line) */
-        50px 50px, /* Size of the grid cells (vertical line) */
-        400% 400%; /* Size of the tie-dye gradient */
-    
-    background-position: 
-        0 0, /* Grid position */
-        0 0, /* Grid position */
-        0% 50%; /* Initial tie-dye gradient position */
-    
-    animation: 
-        tieDyeGradient 15s ease infinite,
-        gridPan 60s linear infinite; /* NEW: Animate grid lines */
-    
-    color: #0d0d0d;
-    font-family: 'Poppins', sans-serif;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  background: 
+    /* darker horizontal + vertical grid lines */
+    linear-gradient(to right, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
+    /* colorful gradient backdrop */
+    linear-gradient(135deg, #c6a5fe, #fda4ee);
+  
+  /* smaller grid size → more grids visible */
+  background-size: 35px 30px, 30px 30px, 100% 200%;
+  
+  /* slightly slower gradient for a dreamy vibe, faster grid movement */
+  animation: tieDyeGradient 15s ease infinite, gridPan 8s linear infinite;
+  
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Brandon Grotesque', sans-serif;
+  overflow: hidden;
 }
 
-/* Keyframe animation for the tie-dye background movement */
 @keyframes tieDyeGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* NEW: Keyframe animation for grid lines movement */
 @keyframes gridPan {
-    0% { background-position: 0 0, 0 0, 0% 50%; }
-    100% { background-position: 50px 50px, 50px 50px, 0% 50%; }
+  0% { background-position: 0 0, 0 0, 0% 50%; }
+  100% { background-position: 25px 25px, 25px 25px, 0% 50%; }
 }
 
 
-/* Main container */
 .container {
     position: relative;
     text-align: center;
 }
 
-/* “Welcome to” */
+/* Intro Text */
 .intro {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    margin-bottom: 0.3rem;
-    color: #333; 
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+/* ===== STRAIGHT TITLE (CENTERED LINE) ===== */
+.curved-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* even spacing between letters */
+  position: relative;
+  font-family: 'Brandon Grotesque', serif;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 4.5rem;
+  color: #320379;
+  letter-spacing: 5px;
+  margin-top: 60px;
 }
 
-/* ... (Existing CSS imports and global styles) ... */
+/* Each letter behaves normally, no rotation */
+.curved-title span {
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
 
-/* “Portfolio” */
-.title {
-    /* CHANGED FONT: Using a bolder, all-caps look for emphasis */
-    font-family: 'Poppins', sans-serif;
+/* Hover effect – smooth lift + shadow */
+.curved-title span:hover {
+  transform: translateY(-10px) scale(1.2);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  color: #222;
+}
+
+
+
+
+/* Floating Labels */
+.label {
+    position: absolute;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    
-    font-size: 6rem;
-    font-weight: 900; /* Increased weight for boldness */
     letter-spacing: 1px;
-    color: #050505;
-}
-
-/* Styling for the Curved Title Effect */
-.title.curved {
-    /* Set positioning context for the curve */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align to the top of the container */
-    height: 1.5em; /* Ensure enough height for the curve */
-}
-
-/* Apply rotation and vertical offset to individual letters */
-.title.curved .title-letter {
-    /* Define the initial rotation and vertical position here */
-    transform-origin: bottom center; /* Pivot point for rotation */
-    /* Adjust these values to control the depth and angle of the curve */
-}
-
-/* Specific curve definitions for each letter (adjust these!) */
-.title.curved .title-letter:nth-child(1) { transform: rotate(-10deg) translateY(20px); } /* P */
-.title.curved .title-letter:nth-child(2) { transform: rotate(-7deg) translateY(10px); }  /* o */
-.title.curved .title-letter:nth-child(3) { transform: rotate(-4deg) translateY(5px); }   /* r */
-.title.curved .title-letter:nth-child(4) { transform: rotate(-2deg) translateY(2px); }   /* t */
-.title.curved .title-letter:nth-child(5) { transform: rotate(0deg) translateY(0px); }    /* f */
-.title.curved .title-letter:nth-child(6) { transform: rotate(2deg) translateY(2px); }    /* o */
-.title.curved .title-letter:nth-child(7) { transform: rotate(4deg) translateY(5px); }    /* l */
-.title.curved .title-letter:nth-child(8) { transform: rotate(7deg) translateY(10px); }   /* i */
-.title.curved .title-letter:nth-child(9) { transform: rotate(10deg) translateY(20px); }  /* o */
-
-/* New style for the individual letters within the title */
-.title-letter {
-    display: inline-block; /* Essential for transform/hover effects */
-    transition: all 0.15s ease-out; /* Smooth hover transition */
-}
-
-/* Hover effect for individual letters (Glow, keeping color black) */
-
-/* Hover effect for individual letters (Glow, keeping color black) */
-.title-letter:hover {
     color: #000;
-    text-shadow: 
-        0 0 5px rgba(0, 0, 0, 0.8),
-        0 0 10px rgba(0, 0, 0, 0.6);
-    
-    /* Preserve the curve and add a slight additional lift/jiggle on hover */
-    /* The transform property is now controlled by JS (initial state) and this CSS (hover state). 
-       We will simplify the JS to let CSS handle the initial curve.
-    */
-    
-    /* We will use a JS fix below, but keep the hover visual effects */
-    /* Example: transform: translateY(-5px) scale(1.05) rotate(-2deg); */
+    border: 2px dashed #000;
+    border-radius: 50%;
+    padding: 8px 16px;
+    background-color: rgba(223, 150, 236, 0.5);
+    backdrop-filter: blur(4px);
+    transition: 0.3s ease;
+    box-shadow: 0 0 3px rgba(212, 37, 154, 0.2);
 }
 
-
-
-/* --------------------------------- */
-/* SVG/ICON STYLES */
-/* --------------------------------- */
-.sketch-line {
-    display: block;
-    margin: 10px auto 0;
-}
-.sketch-line path {
-    stroke-dasharray: 400; 
-    stroke-dashoffset: 400; 
-    animation: drawLine 2s ease-out forwards;
+.label::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -5px;
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    border: 1px dashed rgba(0, 0, 0, 0.3);
+    transform: rotate(3deg);
 }
 
-@keyframes drawLine {
-    to { stroke-dashoffset: 0; }
+.label:hover {
+    background: #6b74d6;
+    color: #000000;
+    transform: scale(10.05);
 }
 
-.pencil-arrow {
-    position: fixed; 
-    bottom: 50px; 
-    right: 70px; 
-    width: 80px; 
-    height: 80px; 
-    transform: rotate(15deg); 
-    z-index: 99; 
-    overflow: visible; 
+/* Label Positions */
+.top-left {
+    top: -80px;
+    left: -250px;
+    font-weight: bold;
+
 }
 
-.pencil-arrow .arrow-path,
-.pencil-arrow .arrow-head {
-    stroke-dasharray: 200; 
-    stroke-dashoffset: 200; 
-    animation: drawArrow 1.5s ease-out forwards 0.5s; 
+.top-right {
+    top: -100px;
+    right: -260px;
+    font-weight: bold;
+
 }
 
-@keyframes drawArrow {
-    to { stroke-dashoffset: 0; }
+.bottom-left {
+    bottom: -80px;
+    left: -300px;
+    font-weight: bold;
+
 }
 
+.bottom-right {
+    bottom: -9px;
+    right: -320px;
+    font-weight: bold;
+
+}
+
+.center-bottom {
+    right: 50px;
+    bottom: -190px;
+    transform: rotate(4deg);
+    font-weight: bold;
+}
+
+/* Social Icons */
 .social-icons {
     position: fixed;
     bottom: 20px;
     right: 30px;
     display: flex;
     gap: 15px;
-    z-index: 100;
 }
+
 .icon-link svg {
-    width: 24px;
-    height: 24px;
-    fill: #1a1a1a;
+    width: 28px;
+    height: 28px;
+    fill: #2600ff;
     transition: transform 0.3s ease-in-out;
 }
+
 .icon-link:hover svg {
-    fill: #ffda2c; 
+    fill: #0073ff;
     transform: scale(1.2) rotate(5deg);
 }
 
-/* --------------------------------- */
-/* LABEL STYLES */
-/* --------------------------------- */
-.labels .label {
-    position: absolute;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #1a1a1a; 
-    border: 1px solid #1a1a1a; 
-    border-radius: 50%;
-    padding: 6px 16px;
-    transform: rotate(-3deg);
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(2px);
-    transition: all 0.3s ease;
-}
-
-/* Rough sketch circle effect */
-.label::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -5px;
-    width: 100%;
-    height: 100%;
-    border: 1px dashed #000;
-    border-radius: 50%;
-    opacity: 0.2;
-}
-
-/* Hover glow */
-.label:hover {
-    background: #000;
-    color: #fff;
-    transform: scale(1.05) rotate(0deg);
-}
-
-/* Placement of each label */
-.top-left { top: -80px; left: -250px; }
-.top-right { top: -100px; right: -260px; }
-.bottom-left { bottom: -80px; left: -200px; }
-.bottom-right { bottom: -90px; right: -220px; }
-.center-right { top: 120px; right: -100px; transform: rotate(4deg); } 
-
-
-/* NEW RANDOM LABEL POSITIONS (Removed since you commented them out in HTML) */
-/* If you want them back, uncomment them in HTML and then this CSS. */
-/* .random-1 { top: 50px; left: -350px; transform: rotate(10deg); }
-.random-2 { bottom: 20px; right: -400px; transform: rotate(-15deg); border: 2px solid #000; }
-.random-3 { top: 200px; left: 200px; transform: rotate(5deg); } */
-
-
-/* Responsive tweaks */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .title { font-size: 3.5rem; }
-    .label { font-size: 0.7rem; padding: 5px 12px; }
-    /* Adjust label positions for smaller screens */
-    .top-left { top: -40px; left: -120px; }
-    .top-right { top: -50px; right: -130px; }
-    .bottom-left { bottom: -40px; left: -100px; }
-    .bottom-right { bottom: -45px; right: -110px; }
-    .center-right { top: 60px; right: -50px; }
-    /* If you bring back random labels, uncomment these: */
-    /* .random-1 { top: 20px; left: -150px; }
-    .random-2 { bottom: 10px; right: -180px; }
-    .random-3 { top: 100px; left: 80px; } */
+    .curved-title {
+        font-size: 2.5rem;
+        letter-spacing: 5px;
+    }
 
-    .social-icons { right: 10px; bottom: 10px; }
-    .pencil-arrow { bottom: 40px; right: 40px; width: 60px; height: 60px; }
+    .label {
+        font-size: 0.7rem;
+        padding: 5px 12px;
+        
+    }
 }
