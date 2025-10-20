@@ -1,33 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@400;600;900&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: 
-    /* darker horizontal + vertical grid lines */
+  background:
     linear-gradient(to right, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
-    /* colorful gradient backdrop */
     linear-gradient(135deg, #c6a5fe, #fda4ee);
-  
-  /* smaller grid size → more grids visible */
   background-size: 35px 30px, 30px 30px, 100% 200%;
-  
-  /* slightly slower gradient for a dreamy vibe, faster grid movement */
   animation: tieDyeGradient 15s ease infinite, gridPan 8s linear infinite;
-  
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Brandon Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
   overflow: hidden;
 }
 
+/* Animations */
 @keyframes tieDyeGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -39,152 +33,106 @@ body {
   100% { background-position: 25px 25px, 25px 25px, 0% 50%; }
 }
 
-
 .container {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
-/* Intro Text */
+/* Intro text */
 .intro {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: #333;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
+  margin-bottom: 0.5rem;
+  color: #000000;
 }
-/* ===== STRAIGHT TITLE (CENTERED LINE) ===== */
+
+/* Title */
 .curved-title {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px; /* even spacing between letters */
-  position: relative;
-  font-family: 'Brandon Grotesque', serif;
+  gap: 12px;
   font-weight: bold;
   font-style: italic;
   font-size: 4.5rem;
-  color: #320379;
+  color: #ad6cdb;
   letter-spacing: 5px;
-  margin-top: 60px;
-}
+  margin-top: 6px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);}
 
-/* Each letter behaves normally, no rotation */
 .curved-title span {
   display: inline-block;
   transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* Hover effect – smooth lift + shadow */
 .curved-title span:hover {
   transform: translateY(-10px) scale(1.2);
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-  color: #222;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
 }
 
-
-
-
-/* Floating Labels */
+/* Floating labels */
 .label {
-    position: absolute;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #000;
-    border: 2px dashed #000;
-    border-radius: 50%;
-    padding: 8px 16px;
-    background-color: rgba(223, 150, 236, 0.5);
-    backdrop-filter: blur(4px);
-    transition: 0.3s ease;
-    box-shadow: 0 0 3px rgba(212, 37, 154, 0.2);
+  position: absolute;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  border: 2px dashed #000;
+  border-radius: 50%;
+  padding: 8px 16px;
+  background-color: rgba(223, 150, 236, 0.5);
+  backdrop-filter: blur(4px);
+  transition: all 0.4s ease;
+  box-shadow: 0 0 6px rgba(212, 37, 154, 0.2);
 }
 
 .label::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -5px;
-    width: 120%;
-    height: 120%;
-    border-radius: 50%;
-    border: 1px dashed rgba(0, 0, 0, 0.3);
-    transform: rotate(3deg);
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -5px;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  transform: rotate(3deg);
 }
 
+/* Fix hover scaling — realistic bounce */
 .label:hover {
-    background: #6b74d6;
-    color: #000000;
-    transform: scale(10.05);
+  background: #987cd1;
+  color: #fff;
+  transform: scale(1.1) rotate(-3deg);
+  box-shadow: 0 0 12px rgba(107, 116, 214, 0.8);
 }
 
-/* Label Positions */
-.top-left {
-    top: -80px;
-    left: -250px;
-    font-weight: bold;
+/* Label positions */
+.top-left { top: -80px; left: -250px; font-weight: bold; }
+.top-right { top: -100px; right: -260px; font-weight: bold; }
+.bottom-left { bottom: -80px; left: -300px; font-weight: bold; }
+.bottom-right { bottom: -9px; right: -320px; font-weight: bold; }
+.center-bottom{ bottom: -120px; left: 50%; transform: translateX(-50%); font-weight: bold; }
 
-}
 
-.top-right {
-    top: -100px;
-    right: -260px;
-    font-weight: bold;
-
-}
-
-.bottom-left {
-    bottom: -80px;
-    left: -300px;
-    font-weight: bold;
-
-}
-
-.bottom-right {
-    bottom: -9px;
-    right: -320px;
-    font-weight: bold;
-
-}
-
-.center-bottom {
-    right: 50px;
-    bottom: -190px;
-    transform: rotate(4deg);
-    font-weight: bold;
-}
-
-/* Social Icons */
 .social-icons {
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-    display: flex;
-    gap: 15px;
+  position: fixed; /* makes sure they stay visible on screen */
+  bottom: 28px; /* move up from bottom */
+  left: 94%; /* center horizontally */
+  transform: translateX(-50%); /* truly center */
+  display: flex;
+  gap: 20px;
+  z-index: 1000; /* ensures they’re not hidden behind anything */
 }
 
-.icon-link svg {
-    width: 28px;
-    height: 28px;
-    fill: #2600ff;
-    transition: transform 0.3s ease-in-out;
+.social-icons a svg {
+  width: 30px;
+  height: 30px;
+  fill: rgb(0, 0, 0); /* change to your preferred color */
+  transition: transform 0.3s, fill 0.3s;
 }
 
-.icon-link:hover svg {
-    fill: #0073ff;
-    transform: scale(1.2) rotate(5deg);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .curved-title {
-        font-size: 2.5rem;
-        letter-spacing: 5px;
-    }
-
-    .label {
-        font-size: 0.7rem;
-        padding: 5px 12px;
-        
-    }
+.social-icons a:hover svg {
+  transform: scale(1.2);
+  fill: #1d51b9; /* blue hover effect */
 }
