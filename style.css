@@ -154,7 +154,7 @@ body {
 }
 
 /* Label positions */
-.top-left { top: -100px; left: -390px; font-weight: bold; }
+.top-left { top: 10px; left: -390px; font-weight: bold; }
 .top-right { top: -100px; right: -360px; font-weight: bold; }
 .bottom-left { bottom: -160px; left: -340px; font-weight: bold; }
 .bottom-right { bottom: -90px; right: -420px; font-weight: bold; }
@@ -162,13 +162,12 @@ body {
 
 
 
-/* 🌸 NAVBAR STYLING */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.2);
+  background: #a0cbff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   justify-content: space-between;
@@ -204,6 +203,38 @@ body {
 body {
   padding-top: 7px;
 }
+
+.sticky-note {
+  position: absolute;
+  top: -80%;
+  left: -10%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 400px;
+  background: #abd9ff; /* sticky note yellow */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+  font-family: 'Comic Sans MS', 'Cursive', sans-serif;
+  line-height: 1.2;
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  z-index: 1000;
+}
+
+.sticky-note h4 {
+  margin-bottom: 1px;
+}
+
+.sticky-note ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.sticky-note.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
 
 
 .social-icons {

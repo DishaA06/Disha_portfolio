@@ -75,5 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`Navigating to: ${labelText.trim()} section...`);
             }
         });
-    });
+    }
+);
+});
+window.addEventListener('load', () => {
+  const stickyNote = document.getElementById('sticky-note');
+  setTimeout(() => {
+    stickyNote.classList.add('show'); // pop-up animation
+  }, 500); // delay for nice effect
 });
