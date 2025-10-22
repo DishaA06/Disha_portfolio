@@ -8,20 +8,48 @@
 
 body {
   background:
-    linear-gradient(to right, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
+    linear-gradient(to right, rgba(64, 60, 60, 0.15) 1px, transparent 2px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
-    linear-gradient(135deg, #c6a5fe, #fda4ee);
-  background-size: 35px 30px, 30px 30px, 100% 200%;
+    linear-gradient(135deg, #ffffff, #ffffff);
+  background-size: 30px 30px, 30px 30px, 100% 200%;
   animation: tieDyeGradient 15s ease infinite, gridPan 8s linear infinite;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  overflow: hidden;
+  font-family:Cambria, Cochin, Georgia, Times, 'Cursive', serif;
+  overflow:hidden;
 }
 
 /* Animations */
+
+/* === Title and Intro Load Animation === */
+@keyframes popUpFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Apply animation to intro text and title */
+.intro, .curved-title {
+  opacity: 0; /* start hidden */
+  animation: popUpFromBottom 1s ease-out forwards;
+}
+
+/* Delay title slightly for a smoother staggered reveal */
+.curved-title {
+  animation-delay: 0.3s;
+}
+
 @keyframes tieDyeGradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -29,36 +57,54 @@ body {
 }
 
 @keyframes gridPan {
-  0% { background-position: 0 0, 0 0, 0% 50%; }
-  100% { background-position: 25px 25px, 25px 25px, 0% 50%; }
+  50% { background-position: 0 0, 0 0, 0% 50%; }
+  50% { background-position: 20px 20px, 20px 20px, 0% 50%; }
 }
 
 .container {
   position: relative;
   text-align: center;
+  
 }
 
 /* Intro text */
 .intro {
-  font-family: 'Playfair Display', serif;
+  font-family:"Playful Display", serif;
+  font-weight: bolder;
+  font-display: fallback;
+  font-style:oblique;
   font-size: 2.3rem;
   margin-bottom: 0.5rem;
   color: #000000;
+  letter-spacing: px;
+  text-shadow: 10px 10px 9px rgba(0, 0, 0, 0.3);
 }
+
+.container span {
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.container span:hover {
+  transform: translateY(-10px) scale(1.2);
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+}
+
 
 /* Title */
 .curved-title {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 1px;
   font-weight: bold;
   font-style: italic;
   font-size: 4.5rem;
-  color: #ad6cdb;
-  letter-spacing: 5px;
+  color: #5553d8;
+  letter-spacing: px;
   margin-top: 6px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);}
+  text-shadow: 10px 10px 9px rgba(0, 0, 0, 0.3);}
 
 .curved-title span {
   display: inline-block;
@@ -67,52 +113,97 @@ body {
 
 .curved-title span:hover {
   transform: translateY(-10px) scale(1.2);
-  text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
-  color: #ffffff;
+  text-shadow: 0 0 15px #5553d8;
+  color: #000000;
 }
 
 /* Floating labels */
 .label {
   position: absolute;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #000;
-  border: 2px dashed #000;
+  color: #000000;
+  border: 1.5px dashed #000000;
   border-radius: 50%;
-  padding: 8px 16px;
+  padding: 16px 16px;
   background-color: rgba(223, 150, 236, 0.5);
   backdrop-filter: blur(4px);
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   box-shadow: 0 0 6px rgba(212, 37, 154, 0.2);
 }
 
 .label::before {
   content: '';
   position: absolute;
-  top: -3px;
+  top: -2px;
   left: -5px;
   width: 120%;
   height: 120%;
   border-radius: 50%;
-  border: 1px dashed rgba(0, 0, 0, 0.3);
-  transform: rotate(3deg);
+  border: 2px dashed rgba(0, 17, 255, 0.3);
+  transform: rotate(5deg);
 }
 
 /* Fix hover scaling — realistic bounce */
 .label:hover {
-  background: #987cd1;
+  background: #7c91d1;
   color: #fff;
   transform: scale(1.1) rotate(-3deg);
-  box-shadow: 0 0 12px rgba(107, 116, 214, 0.8);
+  box-shadow: 0 0 12px #5553d8;
 }
 
 /* Label positions */
-.top-left { top: -80px; left: -250px; font-weight: bold; }
-.top-right { top: -100px; right: -260px; font-weight: bold; }
-.bottom-left { bottom: -80px; left: -300px; font-weight: bold; }
-.bottom-right { bottom: -9px; right: -320px; font-weight: bold; }
-.center-bottom{ bottom: -120px; left: 50%; transform: translateX(-50%); font-weight: bold; }
+.top-left { top: -100px; left: -390px; font-weight: bold; }
+.top-right { top: -100px; right: -360px; font-weight: bold; }
+.bottom-left { bottom: -160px; left: -340px; font-weight: bold; }
+.bottom-right { bottom: -90px; right: -420px; font-weight: bold; }
+.center-bottom{ bottom: -230px; left: 50%; transform: translateX(-50%); font-weight: bold; }
+
+
+
+/* 🌸 NAVBAR STYLING */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  z-index: 2000;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.rem;
+  color: #000000;
+  font-weight: bold;
+}
+
+.nav-right a {
+  margin-left: 50px;
+  margin-bottom: 0%;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-right a:hover {
+  color: #4b53ff;
+  transform: scale(1.9);
+  transition: all;
+}
+
+/* Push content below navbar */
+body {
+  padding-top: 7px;
+}
 
 
 .social-icons {
@@ -134,5 +225,5 @@ body {
 
 .social-icons a:hover svg {
   transform: scale(1.2);
-  fill: #1d51b9; /* blue hover effect */
+  fill: #0080ff; /* blue hover effect */
 }
