@@ -106,6 +106,8 @@ body {
   backdrop-filter: blur(4px);
   transition: all 0.3s ease;
   box-shadow: 0 0 10px #a0cbff;
+  cursor:grabbing;
+  z-index: 1000;
 }
 
 .label::before {
@@ -170,18 +172,23 @@ body {
   background: #abd9ff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
   font-family: 'Comic Sans MS', 'Cursive', sans-serif;
   line-height: 1.2;
   opacity: 0;
   transition: transform 0.6s ease, opacity 0.6s ease;
   z-index: 1000;
 }
+.sticky-note:hover{
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
+  cursor: grabbing;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 
 .sticky-note.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 
 .sticky-note h3 { margin-bottom: 5px; }
 .sticky-note ul { list-style-type: disc; padding-left: 20px; }
+
 
 /* Popup windows */
 #popup-container { position: absolute; inset: 0; pointer-events: none; }
@@ -190,7 +197,7 @@ body {
   margin-top: 180px;
   margin-left: 22%;
   width: 360px;
-  background: white;
+  background: rgb(255, 255, 255);
   position: absolute;
   border-radius: 12px;
   box-shadow: 0px 50px 35px rgba(0,0,0,0.25);
@@ -207,7 +214,7 @@ body {
 }
 
 .titlebar {
-  background: #86b8ff;
+  background: #abd9ff;
   padding: 4px;
   display: flex;
   gap: 2px;
@@ -223,15 +230,21 @@ body {
 .popup-img { width: 100%; border-radius: 0 0 10px 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 
 #popup-text .popup-content {
-  font-weight: bold;
-  font-style: italic;
-  font-family: Cambria, Cochin, Georgia, Times, 'Cursive', serif;
-  padding: 0 1px 1px 1px;
-  text-align:left;
-  color: #000;
-  text-shadow: 1px 1px 2px rgb(94, 207, 255);
-  letter-spacing: -1px;
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'Comic Sans MS', 'Cursive', sans-serif;
+  font-size: 16px;       /* ← add this */
+  text-align: left;
+  color: #000000;
+  letter-spacing: 0px;
+  padding: 2px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+  line-height: 1.2;
+  opacity: 1;            /* ← fix opacity */
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  z-index: 1000;
 }
+
 
 /* Social icons */
 .social-icons {
