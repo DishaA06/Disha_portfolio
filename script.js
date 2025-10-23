@@ -1,14 +1,6 @@
-/**
- * script.js for Disha’s Portfolio
- * Adds subtle parallax motion to the labels and animates the title text.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Parallax Effect for Labels
-    // -----------------------------------------------------------------
+    // Parallax Labels
     const labels = document.querySelectorAll('.labels .label');
-
-    // Add a listener to the entire document body
     document.addEventListener('mousemove', (e) => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
@@ -16,71 +8,74 @@ document.addEventListener('DOMContentLoaded', () => {
         const mouseY = e.clientY - centerY;
 
         labels.forEach((label, index) => {
-            // Adjust depth calculation for a more subtle effect
-            const depth = (index + 1) * 0.05; 
+            const depth = (index + 1) * 0.05;
             const moveX = (mouseX * depth) / 15;
             const moveY = (mouseY * depth) / 15;
-
-            // Get the current CSS transform (including rotation)
             const currentTransform = window.getComputedStyle(label).transform;
-
-            // Extract the rotation part (e.g., "rotate(4deg)")
-            let rotation = 'rotate(0deg)'; // Default if no rotation found
+            let rotation = 'rotate(0deg)';
             const rotationMatch = currentTransform.match(/rotate\((.*?)\)/);
-            if (rotationMatch) {
-                rotation = rotationMatch[0];
-            } else {
-                // Fallback for initial state or where the matrix doesn't show rotate() explicitly
-                // You might need to check your CSS and set a specific fallback here for each label
-                // For simplicity, we'll try to get the existing CSS matrix transform
-            }
-
-            // Apply the parallax translation *and* the original rotation
-            label.style.transform = `
-                translate3d(${moveX}px, ${moveY}px, 0) 
-                ${rotation}
-            `;
+            if (rotationMatch) rotation = rotationMatch[0];
+            label.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) ${rotation}`;
         });
     });
 
-
-    // 2. Dynamic Text Animation for the Title (PORTFOLIO)
-    // -----------------------------------------------------------------
-    // FIX: Select the correct element: .curved-title
-    const titleSpans = document.querySelectorAll('.curved-title span'); 
-
-    // 2.1 Set initial state for animation (optional but good practice)
-    titleSpans.forEach(span => {
-        span.style.opacity = 0;
-    });
-
-    // 2.2 Animate the spans into view
-    titleSpans.forEach((span, index) => {
-        // We use the existing spans, just fade them in sequentially
-        setTimeout(() => {
-            span.style.transition = 'opacity 0.5s ease-out, transform 0.3s ease';
-            span.style.opacity = 1;
-        }, 50 * index); // 50ms delay per letter
-    });
+    const titleSpans = document.querySelectorAll('.curved-title span'); titleSpans.forEach(span => span.style.opacity = 0); titleSpans.forEach((span, i) => { setTimeout(() => { span.style.transition = 'opacity 1.5s ease-out, transform 0.3s ease'; span.style.opacity = 1; }, 50 * i); });
 
 
-    // 3. Optional: Add Clickable Links to Labels
-    // -----------------------------------------------------------------
-    labels.forEach(label => {
-        label.style.cursor = 'pointer';
-        label.addEventListener('click', (event) => {
-            const labelText = event.target.textContent;
-            if (labelText) {
-                // In a real site, replace alert with window.location.href = '/projects.html'
-                alert(`Navigating to: ${labelText.trim()} section...`);
-            }
-        });
-    }
-);
+    // Label click demo
+    // labels.forEach(label => {
+    //     label.style.cursor = 'pointer';
+    //     label.addEventListener('click', (e) => {
+    //         const text = e.target.textContent;
+    //         if (text) alert(`Navigating to: ${text.trim()} section...`);
+    //     });
+    // });
 });
+
+// Sticky Note Animation
 window.addEventListener('load', () => {
-  const stickyNote = document.getElementById('sticky-note');
-  setTimeout(() => {
-    stickyNote.classList.add('show'); // pop-up animation
-  }, 500); // delay for nice effect
+    const stickyNote = document.getElementById('sticky-note');
+    setTimeout(() => stickyNote.classList.add('show'), 500);
+});
+
+// Popup logic
+const label = document.querySelector("#more-about-me");
+const popups = [
+    document.getElementById("popup-text"),
+    document.getElementById("popup-photo-2")
+];
+
+label.addEventListener("click", () => {
+    popups.forEach((p, i) => {
+        setTimeout(() => {
+            p.style.display = "block";
+            p.style.left = (100 + i * 300) + "px";
+            p.style.top = (10 + i * 100) + "px";
+        }, i * 150);
+    });
+});
+
+// making popups draggable
+popups.forEach(popup => {
+    let isDown = false;
+    let offset = [0, 0];
+    // Mouse down on popup
+
+    popup.addEventListener("mousedown", e => {
+        isDown = true;
+        popup.style.zIndex = Date.now(); // bring to front
+        offset = [popup.offsetLeft - e.clientX, popup.offsetTop - e.clientY];
+        e.stopPropagation(); // prevent closing when starting drag
+    });
+
+    document.addEventListener("mouseup", () => isDown = false);
+
+    document.addEventListener("mousemove", e => {
+        if (!isDown) return;
+        popup.style.left = e.clientX + offset[0] + "px";
+        popup.style.top = e.clientY + offset[1] + "px";
+    });
+
+    // Prevent clicks inside popup from closing it
+    popup.addEventListener("click", e => e.stopPropagation());
 });
