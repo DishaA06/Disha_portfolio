@@ -169,7 +169,7 @@ body {
   left: -10%;
   transform: translate(-50%, -50%) scale(0);
   width: 400px;
-  background: #abd9ff;
+  background: #f5ffab;
   padding: 20px;
   border-radius: 8px;
   font-family: 'Comic Sans MS', 'Cursive', sans-serif;
@@ -245,6 +245,21 @@ body {
   z-index: 1000;
 }
 
+/* Popup closing animation */
+.popup-window.closing {
+  animation: popupClose 0.3s ease forwards;
+}
+
+@keyframes popupClose {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
 
 /* Social icons */
 .social-icons {

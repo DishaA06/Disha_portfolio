@@ -19,9 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const titleSpans = document.querySelectorAll('.curved-title span'); titleSpans.forEach(span => span.style.opacity = 0); titleSpans.forEach((span, i) => { setTimeout(() => { span.style.transition = 'opacity 1.5s ease-out, transform 0.3s ease'; span.style.opacity = 1; }, 50 * i); });
-
-    // (Commented out Label click demo remains as is)
+    const titleSpans = document.querySelectorAll('.curved-title span');
+    titleSpans.forEach(span => span.style.opacity = 0);
+    titleSpans.forEach((span, i) => {
+        setTimeout(() => {
+            span.style.transition = 'opacity 1.5s ease-out, transform 0.3s ease';
+            span.style.opacity = 1;
+        }, 50 * i);
+    });
 });
 
 // Sticky Note Animation
@@ -30,93 +35,86 @@ window.addEventListener('load', () => {
     setTimeout(() => stickyNote.classList.add('show'), 500);
 });
 
-// Popup logic and Dragging (REVISED)
+// Popup logic and Dragging
 const label = document.querySelector("#more-about-me");
 const popups = [
     document.getElementById("popup-text"),
     document.getElementById("popup-photo-2")
 ];
 
+// 🟢 New Function: Animate popup close smoothly
+function animateClose(popup) {
+    popup.classList.add("closing");
+    setTimeout(() => {
+        popup.style.display = "none";
+        popup.classList.remove("closing");
+    }, 300); // Matches CSS animation duration
+}
+
 // Function to close all popups
 function closePopups() {
     popups.forEach(p => {
-        p.style.display = "none";
+        if (p.style.display === "block") {
+            animateClose(p);
+        }
     });
 }
 
 // Open popups on label click
 label.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent the document click listener from immediately closing them
+    e.stopPropagation(); // Prevent document click from closing immediately
     popups.forEach((p, i) => {
-        // Only show if currently hidden (prevents re-positioning if already open)
         if (p.style.display === "none" || !p.style.display) {
             setTimeout(() => {
                 p.style.display = "block";
-                // Initial positioning (using left/top)
                 p.style.left = (100 + i * 300) + "px";
                 p.style.top = (10 + i * 100) + "px";
-                p.style.position = "absolute"; // Ensure they are positionable
+                p.style.position = "absolute";
+                p.classList.remove("closing"); // Ensure clean state
             }, i * 150);
         }
     });
 });
 
-// --- NEW FEATURE: Click outside to close popups ---
+// Close popups on outside click
 document.addEventListener("click", (e) => {
-    // Check if the click target is the opening label, or inside any popup
     let isClickInsidePopup = popups.some(p => p.contains(e.target));
     let isClickOnLabel = label.contains(e.target);
-
-    // If the click is NOT inside a popup AND NOT on the label, close them
     if (!isClickInsidePopup && !isClickOnLabel) {
         closePopups();
     }
 });
-// --------------------------------------------------
 
-// making popups draggable (FIXED OFFSET)
+// Make popups draggable
 popups.forEach(popup => {
     let offsetX = 0;
     let offsetY = 0;
 
     popup.addEventListener("mousedown", e => {
         e.preventDefault();
-        e.stopPropagation(); // Stop propagation to prevent document click from closing
+        e.stopPropagation();
+        popup.style.zIndex = Date.now();
 
-        popup.style.zIndex = Date.now(); // bring to front
-
-        // --- FIXED OFFSET LOGIC ---
-        // Get the current computed 'left' and 'top' values, defaulting to 0
         const style = window.getComputedStyle(popup);
         const currentLeft = parseFloat(style.left) || 0;
         const currentTop = parseFloat(style.top) || 0;
 
-        // Calculate offset by subtracting the current CSS 'left'/'top' 
-        // from the mouse's client coordinates. This makes the drag smooth.
         offsetX = e.clientX - currentLeft;
         offsetY = e.clientY - currentTop;
-        // -------------------------
+        popup.style.position = "absolute";
 
-        popup.style.position = "absolute"; // Ensure it's absolutely positioned for dragging
-
-        // Move popup as mouse moves
         function onMouseMove(e) {
             popup.style.left = e.clientX - offsetX + "px";
             popup.style.top = e.clientY - offsetY + "px";
         }
 
-        // Attach mousemove listener
         document.addEventListener("mousemove", onMouseMove);
-
-        // Remove listener on mouseup
         function onMouseUp() {
             document.removeEventListener("mousemove", onMouseMove);
             document.removeEventListener("mouseup", onMouseUp);
         }
-
         document.addEventListener("mouseup", onMouseUp);
     });
 
-    // Prevent clicks inside popup from propagating up and closing them
     popup.addEventListener("click", e => e.stopPropagation());
 });
