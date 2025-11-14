@@ -284,4 +284,80 @@ body {
   fill: #0080ff;
 }
 
+
+/* CONTACT POPUP WINDOW */
+#popup-contact {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 300px;
+  padding: 0;
+  border-radius: 12px;
+  display: none;
+  opacity: 0;
+  transition: 0.25s ease;
+  z-index: 99999;
+
+  /* Crumpled paper texture */
+  background: url("https://i.imgur.com/0O7P0rY.jpg"),
+              #ffbb00;
+  background-size: 300px 300px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+
+/* Active state (when shown) */
+#popup-contact.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Contact card text */
+.contact-card {
+  padding: 18px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.contact-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.35rem;
+}
+
+.contact-card a {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
+
+/* Drag handle */
+.contact-drag-area {
+  cursor: grab;
+}
+.contact-drag-area:active {
+  cursor: grabbing;
+}
+/* Ensure contact popup uses fixed positioning and shows grab cursor */
+#popup-contact {
+  position: fixed; /* better for viewport-based dragging */
+  cursor: grab;
+}
+
+/* show grabbing cursor while active */
+#popup-contact:active {
+  cursor: grabbing;
+}
+
+/* optional: reduce transitions while dragging for snappy movement */
+#popup-contact.dragging {
+  transition: none !important;
+}
+
+
+
 .popup-window:active { cursor: grabbing; }
