@@ -88,31 +88,141 @@ document.addEventListener("click", (e) => {
 
 
 // ------------------- CONTACT POPUP (full-window dragging) -------------------
+// ------------------- CONTACT POPUP (full-window dragging) -------------------
 
 const contactBtn = document.querySelector(".top-left");
 const contactPopup = document.getElementById("popup-contact");
 const closeContact = document.getElementById("close-contact");
 
-// Open popup and center it (if not already positioned)
-contactBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  contactPopup.classList.add("show");
+// If elements are missing, bail quietly (prevents script errors)
+if (contactBtn && contactPopup && closeContact) {
 
-  // Center visually and convert to fixed coords
-  requestAnimationFrame(() => {
-    // ensure the element is measurable
+  // Helper to center visually (reads real size via getBoundingClientRect)
+  function centerContactPopupIfNeeded() {
     const rect = contactPopup.getBoundingClientRect();
-    // if already positioned (user moved it), don't recenter
-    if (!contactPopup.style.left && !contactPopup.style.top) {
+    // center only if user hasn't moved it before
+    if (!contactPopup.dataset.moved) {
       contactPopup.style.position = "fixed";
       contactPopup.style.left = `${Math.round((window.innerWidth - rect.width) / 2)}px`;
       contactPopup.style.top = `${Math.round((window.innerHeight - rect.height) / 2)}px`;
       contactPopup.style.transform = "none";
     }
-    // bring to front
     contactPopup.style.zIndex = Date.now();
+  }
+
+  // Open popup and center it (only first time)
+  contactBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    contactPopup.classList.add("show");
+    // run on next frame to ensure layout measured correctly
+    requestAnimationFrame(centerContactPopupIfNeeded);
   });
-});
+
+  // Close popup (X button)
+  closeContact.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    contactPopup.classList.remove("show");
+  });
+
+  // Close popup when clicking outside
+  document.addEventListener("click", (e) => {
+    const inside = contactPopup.contains(e.target) || contactBtn.contains(e.target);
+    if (!inside) contactPopup.classList.remove("show");
+  });
+
+  // ------------------- FIXED, ROBUST DRAGGING -------------------
+
+  // Ensure pointer interactions won't trigger browser gestures while dragging
+  contactPopup.style.touchAction = contactPopup.style.touchAction || "manipulation";
+
+  let dragActive = false;
+  let startX = 0, startY = 0;
+  let startLeft = 0, startTop = 0;
+  let pointerId = null;
+
+  // pointerdown: begin drag (only when visible)
+  contactPopup.addEventListener("pointerdown", (e) => {
+    if (!contactPopup.classList.contains("show")) return;
+
+    // ignore clicks on expected interactive controls
+    if (e.target.closest("a, button, input, textarea, select, label")) return;
+
+    // prevent default to avoid text-select / scrolling
+    e.preventDefault();
+    e.stopPropagation();
+
+    pointerId = e.pointerId;
+    try { contactPopup.setPointerCapture(pointerId); } catch (err) { /* ignore */ }
+
+    const rect = contactPopup.getBoundingClientRect();
+
+    startX = e.clientX;
+    startY = e.clientY;
+    startLeft = rect.left;
+    startTop = rect.top;
+
+    // normalize to fixed positioning and remove any centering transform to avoid jumps
+    contactPopup.style.position = "fixed";
+    contactPopup.style.transform = "none";
+
+    // mark that user moved it (so we don't recenter automatically later)
+    contactPopup.dataset.moved = "true";
+
+    // prevent page text selection/scroll during drag
+    document.body.style.userSelect = "none";
+    contactPopup.style.touchAction = "none";
+
+    contactPopup.style.zIndex = Date.now();
+
+    dragActive = true;
+  });
+
+  // pointermove: update position while dragging
+  document.addEventListener("pointermove", (e) => {
+    if (!dragActive || e.pointerId !== pointerId) return;
+
+    // protect default behaviour
+    e.preventDefault();
+    e.stopPropagation();
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    let newLeft = Math.round(startLeft + dx);
+    let newTop = Math.round(startTop + dy);
+
+    // clamp inside viewport with margin
+    const margin = 10;
+    const maxLeft = Math.max(window.innerWidth - contactPopup.offsetWidth - margin, margin);
+    const maxTop = Math.max(window.innerHeight - contactPopup.offsetHeight - margin, margin);
+
+    newLeft = Math.min(Math.max(newLeft, margin), maxLeft);
+    newTop = Math.min(Math.max(newTop, margin), maxTop);
+
+    contactPopup.style.left = `${newLeft}px`;
+    contactPopup.style.top = `${newTop}px`;
+  }, { passive: false });
+
+  // end drag helper
+  function stopDrag(e) {
+    if (!dragActive) return;
+    dragActive = false;
+
+    try { contactPopup.releasePointerCapture(pointerId); } catch (err) { /* ignore */ }
+    pointerId = null;
+
+    document.body.style.userSelect = "";
+    // restore a reasonable touch-action
+    contactPopup.style.touchAction = "manipulation";
+  }
+
+  document.addEventListener("pointerup", stopDrag);
+  document.addEventListener("pointercancel", stopDrag);
+
+  // Prevent clicks inside popup from bubbling (so outside click handler doesn't immediately close)
+  contactPopup.addEventListener("click", (e) => e.stopPropagation());
+}
+
 
 // Close popup (X)
 closeContact.addEventListener("click", (ev) => {
@@ -250,3 +360,74 @@ popups.forEach(popup => {
 
     popup.addEventListener("click", e => e.stopPropagation());
 });
+// ====================================================================
+// 🎨 ARTWORKS FLOATING LABEL → DESK OF AN ARTIST POPUP
+// (NON-INTRUSIVE, NO OVERRIDES, DOES NOT TOUCH EXISTING CODE)
+// ====================================================================
+
+// Get elements
+const artworksLabel = document.getElementById("artworks-btn");
+const deskPopup = document.getElementById("artist-popup");
+const closeDeskPopup = document.getElementById("close-artist");
+
+// ---- Open popup ----
+if (artworksLabel && deskPopup) {
+    artworksLabel.addEventListener("click", (e) => {
+        e.stopPropagation();
+        deskPopup.style.display = "block";
+        deskPopup.classList.add("show");
+    });
+}
+
+// ---- Close popup ----
+if (closeDeskPopup && deskPopup) {
+    closeDeskPopup.addEventListener("click", (e) => {
+        e.stopPropagation();
+        deskPopup.classList.remove("show");
+        setTimeout(() => deskPopup.style.display = "none", 200);
+    });
+}
+
+// ---- Close when clicking outside ----
+document.addEventListener("click", (e) => {
+    if (
+        deskPopup &&
+        deskPopup.style.display === "block" &&
+        !deskPopup.contains(e.target) &&
+        e.target !== artworksLabel
+    ) {
+        deskPopup.classList.remove("show");
+        setTimeout(() => deskPopup.style.display = "none", 200);
+    }
+});
+
+// ---- Make popup draggable (doesn't affect any existing elements) ----
+function makeDragTarget(el) {
+    let offsetX = 0, offsetY = 0, dragging = false;
+
+    el.addEventListener("mousedown", (e) => {
+        if (e.target.closest("button")) return;
+        dragging = true;
+        const r = el.getBoundingClientRect();
+        offsetX = e.clientX - r.left;
+        offsetY = e.clientY - r.top;
+        el.style.position = "absolute";
+        el.style.zIndex = Date.now();
+        document.body.style.userSelect = "none";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        el.style.left = e.clientX - offsetX + "px";
+        el.style.top = e.clientY - offsetY + "px";
+    });
+
+    document.addEventListener("mouseup", () => {
+        dragging = false;
+        document.body.style.userSelect = "";
+    });
+}
+
+
+
+

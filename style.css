@@ -364,5 +364,96 @@ body {
 }
 
 
+/* ★★★★★ ARTWORK POPUP — FIXED AND CLEAN ★★★★★ */
+
+#popup-artwork {
+  position: fixed;
+  top: 40%;
+  left: 55%;
+  transform: translate(-50%, -50%) scale(0.85);
+  width: 425px;
+  height: auto;
+  padding: 0;
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+
+  display: none;
+  opacity: 1;
+  transition: 0.25s ease;
+  z-index: 9999;
+}
+
+#popup-artwork.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Desk container */
+.desk-container {
+  padding: 12px;
+  position: relative;
+}
+
+/* The sketchbook image pages */
+.sketchbook {
+  width: 350px;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+}
+
+.art-page {
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
+  display :none;
+}
+
+.art-page.active {
+  display: block;
+}
+
+/* Tools (pencil, brush, eraser) */
+.tool {
+  position: absolute;
+  width: 25px;
+  opacity: 0.9;
+  pointer-events:none;
+}
+
+.pencil { bottom: -10px; left: 5px; }
+.brush  { top: 5px; right: 5px; }
+.eraser { bottom: -10px; right: 5px; }
+
+/* Sticky note text */
+.sticky-note-art {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: rgb(0, 0, 0);
+  opacity: 0.75;
+}
+
+/* Page change buttons */
+.page-controls {
+  text-align: center;
+  padding: 10px 0 15px;
+}
+
+.page-controls button {
+  padding: 6px 14px;
+  margin: 0 6px;
+  border: none;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
 
 .popup-window:active { cursor: grabbing; }

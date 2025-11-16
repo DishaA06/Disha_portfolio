@@ -36,8 +36,8 @@
     </h1>
 
     <div class="labels">
-      <span class="label top-left">Contact Me</span>
-      <span class="label top-right">Artwork</span>
+      <span class="label top-left" id="contact-label">Contact Me</span>
+      <span class="label top-right" id="artwork-btn">Artwork</span>
       <span class="label bottom-left" id="more-about-me">More About Me</span>
       <span class="label bottom-right">Certifications</span>
       <span class="label center-bottom">Projects</span>
@@ -61,8 +61,7 @@
     <div class="nav-left">
       <h2 class="logo">⚪ 🟣 🔵</h2>
     </div>
-    <div class="nav-right">
-    </div>
+    <div class="nav-right"></div>
     <div id="date-time" class="date-time"></div>
   </nav>
 
@@ -115,31 +114,73 @@
   </div>
 
   <!-- CONTACT POPUP -->
-<div class="popup-window" id="popup-contact">
-  <div class="titlebar contact-drag-area">
-    <span class="dot red"></span>
-    <span class="dot yellow"></span>
-    <span class="dot green" id="close-contact"></span>
+  <div class="popup-window" id="popup-contact">
+    <div class="titlebar contact-drag-area">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green" id="close-contact"></span>
+    </div>
+
+    <div class="contact-card">
+      <h3>Contact Me</h3>
+      <p><strong>Gmail</strong> <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsCVwTBjpqhGsRlWwXkKNXMgbvBbWRxRxhPgsKRWHbbDWhGfQFJbGKKsRdZsTMPSWdDhkxsL" target="_blank">Gmail</a></p>
+
+      <p><strong>LinkedIn:</strong> 
+        <a href="https://www.linkedin.com/in/disha-oza-bba48928a/" target="_blank">Linkedln</a>
+      </p>
+
+      <p><strong>GitHub:</strong> 
+        <a href="https://github.com/DishaA06" target="_blank">Github</a>
+      </p>
+    </div>
   </div>
 
-  <div class="contact-card">
-    <h3>Contact Me</h3>
-    <p><strong>Gmail</strong> <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsCVwTBjpqhGsRlWwXkKNXMgbvBbWRxRxhPgsKRWHbbDWhGfQFJbGKKsRdZsTMPSWdDhkxsL" target="_blank">Gmail</a>
-    </p>
-    <p><strong>LinkedIn:</strong> 
-      <a href="https://www.linkedin.com/in/disha-oza-bba48928a/" target="_blank">Linkedln</a>
-    </p>
-    <p><strong>GitHub:</strong> 
-      <a href="https://github.com/DishaA06" target="_blank">Github</a>
-    </p>
-  </div>
-</div>
+  <!-- ★★★★★ FINAL ARTWORK POPUP — Desk of an Artist ★★★★★ -->
+  <div class="popup-window" id="popup-artwork">
+    <div class="titlebar" id="artwork-drag-area">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green" id="close-artwork"></span>
+    </div>
 
-  
+    <div class="desk-container">
+      <div class="sketchbook">
+        <img src="assets/art1.jpeg" class="art-page active" />
+        <img src="assets/art2.jpeg" class="art-page" />
+        <img src="assets/art3.jpeg" class="art-page" />
+      </div>
+
+      <img src="assets/pencil.svg" class="tool pencil">
+      <img src="assets/brush.svg" class="tool brush">
+      <img src="assets/eraser.svg" class="tool eraser">
+
+      <div class="sticky-note-art">For other artworks please visit the instagram link ❤️</div>
+    </div>
+
+    <div class="page-controls">
+      <button id="prev-page">⟵ Prev</button>
+      <button id="next-page">Next ⟶</button>
+    </div>
+  </div>
+
+  <!-- Zoom Overlay -->
+  <div id="zoom-overlay">
+    <img id="zoom-img" />
+  </div>
 
   <!-- SCRIPTS -->
   <script src="script.js"></script>
   <script src="contact.js"></script>
+  <script>
+  document.getElementById("artwork-btn").addEventListener("click", () => {
+    document.getElementById("popup-artwork").style.display = "block";
+  });
+
+  document.getElementById("close-artwork").addEventListener("click", () => {
+    document.getElementById("popup-artwork").style.display = "none";
+  });
+</script>
+
 
   <script>
     // Real-time date/time updater
@@ -154,10 +195,12 @@
         minute: '2-digit',
         second: '2-digit'
       };
-      document.getElementById('date-time').textContent = now.toLocaleString('en-IN', options);
+      document.getElementById('date-time').textContent =
+        now.toLocaleString('en-IN', options);
     }
     setInterval(updateDateTime, 1000);
     updateDateTime();
   </script>
+
 </body>
 </html>
