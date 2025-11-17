@@ -8,11 +8,12 @@
 
 body {
   background:
+    url("https://i.imgur.com/8w7iF8v.png") center/cover no-repeat,  /* crumpled paper texture */
     linear-gradient(to right, rgba(64, 60, 60, 0.15) 1px, transparent 2px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 1px, transparent 2px),
-    linear-gradient(135deg, #ffffff, #ffffff);
-  background-size: 30px 30px, 30px 30px, 100% 200%;
-  animation: tieDyeGradient 15s ease infinite, gridPan 8s linear infinite;
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 1px, transparent 2px);
+    
+  background-size: cover, 30px 30px, 30px 30px;
+  animation: gridPan 8s linear infinite;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -21,6 +22,7 @@ body {
   overflow: hidden;
   padding-top: 7px;
 }
+
 
 /* Animations */
 @keyframes popUpFromBottom {
@@ -300,15 +302,15 @@ body {
   z-index: 99999;
 
   /* Crumpled paper texture */
-  background: url("https://i.imgur.com/3ZQ3Z9y.png");
+  background: url("assets/paper.jpg") center/cover no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.95;
-  background-repeat: no-repeat;
-  color: #000;
+  background-color: rgba(255,255,255,0.85);
 
+  color: #000;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
 }
+
 
 
 /* Active state (when shown) */
@@ -318,11 +320,37 @@ body {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Contact card text */
+#popup-contact {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 300px;
+  padding: 0;
+  border-radius: 12px;
+  display: none;
+
+  /* SHOW THE TEXTURE */
+  background: url("https://i.imgur.com/3ZQ3Z9y.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* DO NOT USE OPACITY HERE */
+  background-color: rgba(255,255,255,0.85);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  transition: 0.25s ease;
+  z-index: 99999;
+}
+
 .contact-card {
   padding: 18px;
   text-align: center;
   font-family: "Poppins", sans-serif;
+
+  /* IMPORTANT */
+  background: transparent !important;
 }
 
 .contact-card h3 {
@@ -331,13 +359,15 @@ body {
 }
 
 .contact-card a {
-  color: #0056b3;
+  color: #0042b3;
   text-decoration: none;
   font-weight: 500;
+
 }
 
 .contact-card a:hover {
   text-decoration: underline;
+
 }
 
 /* Drag handle */
@@ -376,7 +406,7 @@ body {
   padding: 0;
   border-radius: 15px;
 
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(85, 90, 20, 0.15);
   backdrop-filter: blur(25px);
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
 
@@ -449,11 +479,28 @@ body {
   padding: 6px 14px;
   margin: 0 6px;
   border: none;
-  background: white;
+  background: rgb(255, 255, 255);
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
 }
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 10px 18px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: rgb(0, 0, 0);
+}
+
+.icon-btn:hover {
+  background: rgba(60, 131, 185, 0.35);
+  transform: scale(1.1);
+}
+
 
 
 .popup-window:active { cursor: grabbing; }

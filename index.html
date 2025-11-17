@@ -135,38 +135,58 @@
     </div>
   </div>
 
-  <!-- ★★★★★ FINAL ARTWORK POPUP — Desk of an Artist ★★★★★ -->
-  <div class="popup-window" id="popup-artwork">
-    <div class="titlebar" id="artwork-drag-area">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green" id="close-artwork"></span>
-    </div>
-
-    <div class="desk-container">
-      <div class="sketchbook">
-        <img src="assets/art1.jpeg" class="art-page active" />
-        <img src="assets/art2.jpeg" class="art-page" />
-        <img src="assets/art3.jpeg" class="art-page" />
-      </div>
-
-      <img src="assets/pencil.svg" class="tool pencil">
-      <img src="assets/brush.svg" class="tool brush">
-      <img src="assets/eraser.svg" class="tool eraser">
-
-      <div class="sticky-note-art">For other artworks please visit the instagram link ❤️</div>
-    </div>
-
-    <div class="page-controls">
-      <button id="prev-page">⟵ Prev</button>
-      <button id="next-page">Next ⟶</button>
-    </div>
+<!-- ★★★★★ FINAL ARTWORK POPUP — Desk of an Artist ★★★★★ -->
+<div class="popup-window" id="popup-artwork">
+  <div class="titlebar" id="artwork-drag-area">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green" id="close-artwork"></span>
   </div>
 
-  <!-- Zoom Overlay -->
-  <div id="zoom-overlay">
-    <img id="zoom-img" />
+  <div class="desk-container">
+    <div class="sketchbook">
+      <img src="assets/art1.jpeg" class="art-page active" />
+      <img src="assets/art2.jpeg" class="art-page" />
+      <img src="assets/art3.jpeg" class="art-page" />
+    </div>
+
+    <img src="assets/pencil.svg" class="tool pencil">
+    <img src="assets/brush.svg" class="tool brush">
+    <img src="assets/eraser.svg" class="tool eraser">
+
   </div>
+
+<div class="page-controls">
+  <button id="prev-page" class="icon-btn">❮</button>
+  <button id="next-page" class="icon-btn">❯</button>
+</div>
+
+</div>
+
+<!-- Artwork Gallery Logic -->
+<script>
+  const pages = document.querySelectorAll(".art-page");
+  let currentPage = 0;
+
+  function showPage(index) {
+    pages.forEach((page, i) => {
+      page.classList.toggle("active", i === index);
+    });
+  }
+
+  document.getElementById("next-page").addEventListener("click", () => {
+    currentPage = (currentPage + 1) % pages.length;  
+    showPage(currentPage);
+  });
+
+  document.getElementById("prev-page").addEventListener("click", () => {
+    currentPage = (currentPage - 1 + pages.length) % pages.length;
+    showPage(currentPage);
+  });
+
+  showPage(currentPage);
+</script>
+
 
   <!-- SCRIPTS -->
   <script src="script.js"></script>

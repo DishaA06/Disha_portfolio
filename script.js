@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Sticky Note Animation
 window.addEventListener('load', () => {
     const stickyNote = document.getElementById('sticky-note');
-    setTimeout(() => stickyNote.classList.add('show'), 500);
+    if (stickyNote) setTimeout(() => stickyNote.classList.add('show'), 500);
 });
 
 // Popup logic and Dragging
@@ -40,67 +40,60 @@ const label = document.querySelector("#more-about-me");
 const popups = [
     document.getElementById("popup-text"),
     document.getElementById("popup-photo-2")
-];
+].filter(Boolean); // filter out any nulls
 
-// 🟢 New Function: Animate popup close smoothly
+// Smooth close animation
 function animateClose(popup) {
+    if (!popup) return;
     popup.classList.add("closing");
     setTimeout(() => {
         popup.style.display = "none";
         popup.classList.remove("closing");
-    }, 300); // Matches CSS animation duration
+    }, 300);
 }
 
-// Function to close all popups
 function closePopups() {
     popups.forEach(p => {
-        if (p.style.display === "block") {
-            animateClose(p);
-        }
+        if (p && p.style.display === "block") animateClose(p);
     });
 }
 
-// Open popups on label click
-label.addEventListener("click", (e) => {
-    e.stopPropagation(); // Prevent document click from closing immediately
-    popups.forEach((p, i) => {
-        if (p.style.display === "none" || !p.style.display) {
-            setTimeout(() => {
-                p.style.display = "block";
-                p.style.left = (100 + i * 300) + "px";
-                p.style.top = (10 + i * 100) + "px";
-                p.style.position = "absolute";
-                p.classList.remove("closing"); // Ensure clean state
-            }, i * 150);
-        }
+// Open popups (about-me)
+if (label) {
+    label.addEventListener("click", (e) => {
+        e.stopPropagation();
+        popups.forEach((p, i) => {
+            if (!p) return;
+            if (p.style.display === "none" || !p.style.display) {
+                setTimeout(() => {
+                    p.style.display = "block";
+                    p.style.left = (100 + i * 300) + "px";
+                    p.style.top = (10 + i * 100) + "px";
+                    p.style.position = "absolute";
+                    p.classList.remove("closing");
+                }, i * 150);
+            }
+        });
     });
-});
+}
 
-// Close popups on outside click
+// Close on outside click (about-me popups)
 document.addEventListener("click", (e) => {
-    let isClickInsidePopup = popups.some(p => p.contains(e.target));
-    let isClickOnLabel = label.contains(e.target);
-    if (!isClickInsidePopup && !isClickOnLabel) {
-        closePopups();
-    }
+    let insidePopup = popups.some(p => p && p.contains(e.target));
+    let onLabel = label && label.contains(e.target);
+    if (!insidePopup && !onLabel) closePopups();
 });
 
-
-
-// ------------------- CONTACT POPUP (full-window dragging) -------------------
-// ------------------- CONTACT POPUP (full-window dragging) -------------------
+// CONTACT POPUP -------------------
 
 const contactBtn = document.querySelector(".top-left");
 const contactPopup = document.getElementById("popup-contact");
 const closeContact = document.getElementById("close-contact");
 
-// If elements are missing, bail quietly (prevents script errors)
 if (contactBtn && contactPopup && closeContact) {
 
-  // Helper to center visually (reads real size via getBoundingClientRect)
   function centerContactPopupIfNeeded() {
     const rect = contactPopup.getBoundingClientRect();
-    // center only if user hasn't moved it before
     if (!contactPopup.dataset.moved) {
       contactPopup.style.position = "fixed";
       contactPopup.style.left = `${Math.round((window.innerWidth - rect.width) / 2)}px`;
@@ -110,225 +103,97 @@ if (contactBtn && contactPopup && closeContact) {
     contactPopup.style.zIndex = Date.now();
   }
 
-  // Open popup and center it (only first time)
   contactBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     contactPopup.classList.add("show");
-    // run on next frame to ensure layout measured correctly
     requestAnimationFrame(centerContactPopupIfNeeded);
   });
 
-  // Close popup (X button)
   closeContact.addEventListener("click", (ev) => {
     ev.stopPropagation();
     contactPopup.classList.remove("show");
   });
 
-  // Close popup when clicking outside
   document.addEventListener("click", (e) => {
     const inside = contactPopup.contains(e.target) || contactBtn.contains(e.target);
     if (!inside) contactPopup.classList.remove("show");
   });
 
-  // ------------------- FIXED, ROBUST DRAGGING -------------------
-
-  // Ensure pointer interactions won't trigger browser gestures while dragging
-  contactPopup.style.touchAction = contactPopup.style.touchAction || "manipulation";
-
+  // Draggable logic
   let dragActive = false;
   let startX = 0, startY = 0;
   let startLeft = 0, startTop = 0;
   let pointerId = null;
 
-  // pointerdown: begin drag (only when visible)
   contactPopup.addEventListener("pointerdown", (e) => {
     if (!contactPopup.classList.contains("show")) return;
-
-    // ignore clicks on expected interactive controls
     if (e.target.closest("a, button, input, textarea, select, label")) return;
 
-    // prevent default to avoid text-select / scrolling
     e.preventDefault();
     e.stopPropagation();
 
     pointerId = e.pointerId;
-    try { contactPopup.setPointerCapture(pointerId); } catch (err) { /* ignore */ }
+    try { contactPopup.setPointerCapture(pointerId); } catch {}
 
     const rect = contactPopup.getBoundingClientRect();
-
     startX = e.clientX;
     startY = e.clientY;
     startLeft = rect.left;
     startTop = rect.top;
 
-    // normalize to fixed positioning and remove any centering transform to avoid jumps
     contactPopup.style.position = "fixed";
     contactPopup.style.transform = "none";
-
-    // mark that user moved it (so we don't recenter automatically later)
     contactPopup.dataset.moved = "true";
 
-    // prevent page text selection/scroll during drag
     document.body.style.userSelect = "none";
     contactPopup.style.touchAction = "none";
 
     contactPopup.style.zIndex = Date.now();
-
     dragActive = true;
   });
 
-  // pointermove: update position while dragging
   document.addEventListener("pointermove", (e) => {
     if (!dragActive || e.pointerId !== pointerId) return;
-
-    // protect default behaviour
     e.preventDefault();
     e.stopPropagation();
 
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
 
-    let newLeft = Math.round(startLeft + dx);
-    let newTop = Math.round(startTop + dy);
+    let left = Math.round(startLeft + dx);
+    let top = Math.round(startTop + dy);
 
-    // clamp inside viewport with margin
     const margin = 10;
     const maxLeft = Math.max(window.innerWidth - contactPopup.offsetWidth - margin, margin);
     const maxTop = Math.max(window.innerHeight - contactPopup.offsetHeight - margin, margin);
 
-    newLeft = Math.min(Math.max(newLeft, margin), maxLeft);
-    newTop = Math.min(Math.max(newTop, margin), maxTop);
+    left = Math.min(Math.max(left, margin), maxLeft);
+    top = Math.min(Math.max(top, margin), maxTop);
 
-    contactPopup.style.left = `${newLeft}px`;
-    contactPopup.style.top = `${newTop}px`;
-  }, { passive: false });
+    contactPopup.style.left = `${left}px`;
+    contactPopup.style.top = `${top}px`;
+  });
 
-  // end drag helper
   function stopDrag(e) {
     if (!dragActive) return;
     dragActive = false;
 
-    try { contactPopup.releasePointerCapture(pointerId); } catch (err) { /* ignore */ }
+    try { contactPopup.releasePointerCapture(pointerId); } catch {}
     pointerId = null;
 
     document.body.style.userSelect = "";
-    // restore a reasonable touch-action
     contactPopup.style.touchAction = "manipulation";
   }
 
   document.addEventListener("pointerup", stopDrag);
   document.addEventListener("pointercancel", stopDrag);
 
-  // Prevent clicks inside popup from bubbling (so outside click handler doesn't immediately close)
   contactPopup.addEventListener("click", (e) => e.stopPropagation());
 }
 
-
-// Close popup (X)
-closeContact.addEventListener("click", (ev) => {
-  ev.stopPropagation();
-  contactPopup.classList.remove("show");
-});
-
-// Close WHEN clicking outside the popup (keeps parity with other popups)
-document.addEventListener("click", (e) => {
-  const clickedInside = contactPopup.contains(e.target) || contactBtn.contains(e.target);
-  if (!clickedInside) {
-    contactPopup.classList.remove("show");
-  }
-});
-
-// ------------------- Dragging (pointer events, whole popup draggable) -------------------
-
-let isDraggingContact = false;
-let startX = 0;
-let startY = 0;
-let startLeft = 0;
-let startTop = 0;
-let activePointerId = null;
-
-// Start drag when pointerdown on popup (but ignore clicks on links/inputs/buttons)
-contactPopup.addEventListener("pointerdown", (ev) => {
-  // only start when popup is visible
-  if (!contactPopup.classList.contains("show")) return;
-
-  // ignore right click or secondary buttons
-  if (ev.button && ev.button !== 0) return;
-
-  // if user clicked a control where dragging would be unexpected, ignore it
-  if (ev.target.closest("a, button, input, textarea, select, label")) return;
-
-  // capture pointer so move events are reliable across the window
-  contactPopup.setPointerCapture(ev.pointerId);
-  activePointerId = ev.pointerId;
-
-  const rect = contactPopup.getBoundingClientRect();
-  // initial positions
-  startX = ev.clientX;
-  startY = ev.clientY;
-  startLeft = rect.left;
-  startTop = rect.top;
-
-  // ensure fixed positioning so left/top are viewport-relative
-  contactPopup.style.position = "fixed";
-  contactPopup.style.transform = "none"; // disable centering transform while dragging
-  contactPopup.style.zIndex = Date.now();
-
-  // disable text selection while dragging
-  document.body.style.userSelect = "none";
-
-  isDraggingContact = true;
-});
-
-// Move
-document.addEventListener("pointermove", (ev) => {
-  if (!isDraggingContact || ev.pointerId !== activePointerId) return;
-
-  const dx = ev.clientX - startX;
-  const dy = ev.clientY - startY;
-
-  let newLeft = Math.round(startLeft + dx);
-  let newTop = Math.round(startTop + dy);
-
-  // clamp within viewport with small margins
-  const margin = 8;
-  const maxLeft = window.innerWidth - contactPopup.offsetWidth - margin;
-  const maxTop = window.innerHeight - contactPopup.offsetHeight - margin;
-  newLeft = Math.min(Math.max(newLeft, margin), Math.max(maxLeft, margin));
-  newTop = Math.min(Math.max(newTop, margin), Math.max(maxTop, margin));
-
-  contactPopup.style.left = `${newLeft}px`;
-  contactPopup.style.top = `${newTop}px`;
-});
-
-// End drag
-function endContactDrag(ev) {
-  if (!isDraggingContact) return;
-  isDraggingContact = false;
-
-  // release pointer capture if possible
-  try { contactPopup.releasePointerCapture(ev.pointerId); } catch (err) { /* ignore */ }
-  activePointerId = null;
-
-  // re-enable text selection
-  document.body.style.userSelect = "";
-
-  // ensure transform state is normalized
-  contactPopup.style.transform = "none";
-}
-
-document.addEventListener("pointerup", endContactDrag);
-document.addEventListener("pointercancel", endContactDrag);
-
-// stop clicks inside popup from bubbling up (so outside-click handler doesn't close immediately)
-contactPopup.addEventListener("click", (e) => e.stopPropagation());
-
-
-
-
-
-// Make popups draggable
+// Draggable for about-me popups
 popups.forEach(popup => {
+    if (!popup) return;
     let offsetX = 0;
     let offsetY = 0;
 
@@ -338,11 +203,8 @@ popups.forEach(popup => {
         popup.style.zIndex = Date.now();
 
         const style = window.getComputedStyle(popup);
-        const currentLeft = parseFloat(style.left) || 0;
-        const currentTop = parseFloat(style.top) || 0;
-
-        offsetX = e.clientX - currentLeft;
-        offsetY = e.clientY - currentTop;
+        offsetX = e.clientX - (parseFloat(style.left) || 0);
+        offsetY = e.clientY - (parseFloat(style.top) || 0);
         popup.style.position = "absolute";
 
         function onMouseMove(e) {
@@ -360,17 +222,14 @@ popups.forEach(popup => {
 
     popup.addEventListener("click", e => e.stopPropagation());
 });
-// ====================================================================
-// 🎨 ARTWORKS FLOATING LABEL → DESK OF AN ARTIST POPUP
-// (NON-INTRUSIVE, NO OVERRIDES, DOES NOT TOUCH EXISTING CODE)
-// ====================================================================
 
-// Get elements
-const artworksLabel = document.getElementById("artworks-btn");
-const deskPopup = document.getElementById("artist-popup");
-const closeDeskPopup = document.getElementById("close-artist");
+// ARTWORK POPUP ---------------------------------------------------
+// NOTE: these IDs match your HTML: "artwork-btn", "popup-artwork", "close-artwork"
+const artworksLabel = document.getElementById("artwork-btn");
+const deskPopup = document.getElementById("popup-artwork");
+const closeDeskPopup = document.getElementById("close-artwork");
 
-// ---- Open popup ----
+// Open
 if (artworksLabel && deskPopup) {
     artworksLabel.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -379,7 +238,7 @@ if (artworksLabel && deskPopup) {
     });
 }
 
-// ---- Close popup ----
+// Close X
 if (closeDeskPopup && deskPopup) {
     closeDeskPopup.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -388,7 +247,7 @@ if (closeDeskPopup && deskPopup) {
     });
 }
 
-// ---- Close when clicking outside ----
+// Close outside (artwork)
 document.addEventListener("click", (e) => {
     if (
         deskPopup &&
@@ -401,12 +260,14 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// ---- Make popup draggable (doesn't affect any existing elements) ----
+// Draggable helper
 function makeDragTarget(el) {
+    if (!el) return;
     let offsetX = 0, offsetY = 0, dragging = false;
 
     el.addEventListener("mousedown", (e) => {
-        if (e.target.closest("button")) return;
+        // ignore if clicking interactive controls
+        if (e.target.closest("button, a, input, textarea, select, label")) return;
         dragging = true;
         const r = el.getBoundingClientRect();
         offsetX = e.clientX - r.left;
@@ -426,8 +287,10 @@ function makeDragTarget(el) {
         dragging = false;
         document.body.style.userSelect = "";
     });
+
+    // also prevent clicks inside from bubbling (so outside click doesn't close immediately)
+    el.addEventListener("click", (e) => e.stopPropagation());
 }
 
-
-
-
+// MAKE ARTWORK POPUP DRAGGABLE
+if (deskPopup) makeDragTarget(deskPopup);
