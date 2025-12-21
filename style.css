@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins:wght@400;600;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.card-front h1 {
+  font-family: 'Anton', sans-serif;
+}
 
 * {
   margin: 0;
@@ -287,8 +292,10 @@ body {
 }
 
 
-/* CONTACT POPUP WINDOW */
+
+/* ================= CONTACT POPUP ================= */
 #popup-contact {
+  color: rgb(17, 255, 0);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -296,60 +303,127 @@ body {
   width: 300px;
   padding: 0;
   border-radius: 12px;
+
   display: none;
   opacity: 0;
-  transition: 0.25s ease;
+
   z-index: 99999;
+  cursor: grab;
 
-  /* Crumpled paper texture */
-  background: url("assets/paper.jpg") center/cover no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-color: rgba(255,255,255,0.85);
+  /* REMOVE ANY BACKGROUND */
+  background: transparent;
+  backdrop-filter: none;
+  
 
-  color: #000;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  color: #000000;
+
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-
-
-/* Active state (when shown) */
+/* Active (open) state */
 #popup-contact.show {
   display: block;
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
 
-#popup-contact {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  width: 300px;
-  padding: 0;
-  border-radius: 12px;
-  display: none;
+/* Dragging polish */
+#popup-contact.dragging {
+  transition: none !important;
+}
 
-  /* SHOW THE TEXTURE */
-  background: url("https://i.imgur.com/3ZQ3Z9y.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* Cursor feedback */
+#popup-contact:active {
+  cursor: grabbing;
+}
 
-  /* DO NOT USE OPACITY HERE */
-  background-color: rgba(255,255,255,0.85);
+/* BUSINESS CARD */
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* spacing between icons */
+  margin-top: 15px;
+}
 
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
-  transition: 0.25s ease;
-  z-index: 99999;
+
+/* Target the front name */
+.card-front h1 {
+  font-family: 'Impact', 'Arial Black', sans-serif; /* Bold, blocky font */
+  font-size: 2.5rem;  /* Increase size */
+  font-weight: 900;   /* Extra bold */
+  letter-spacing: 1px; /* Optional: spacing between letters */
+  text-align: center;  /* Center the text */
+  color: #1a1a1a;     /* Dark color for visibility */
+  margin: 20px 0;     /* Adjust spacing as needed */
+}
+
+.contact-icon {
+  width: 30px;  /* adjust size */
+  height: 30px;
+  fill: #0042b3; /* icon color */
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-icon:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
 }
 
 .contact-card {
   padding: 18px;
   text-align: center;
   font-family: "Poppins", sans-serif;
+  background: #ffffff; /* card itself has white background */
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
 
-  /* IMPORTANT */
+.contact-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.35rem;
+}
+
+.contact-card a {
+  color: #8d107e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+  animation: forwards;
+}
+
+/* Drag handle if needed */
+.contact-drag-area {
+  cursor: grab;
+}
+.contact-drag-area:active {
+  cursor: grabbing;
+}
+
+
+/* Active (open) state */
+#popup-contact.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Dragging polish */
+#popup-contact.dragging {
+  transition: none !important;
+}
+
+/* Cursor feedback */
+#popup-contact:active {
+  cursor: grabbing;
+}
+.contact-card {
+  padding: 18px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
   background: transparent !important;
 }
 
@@ -362,45 +436,28 @@ body {
   color: #0042b3;
   text-decoration: none;
   font-weight: 500;
-
 }
 
 .contact-card a:hover {
   text-decoration: underline;
-
 }
 
-/* Drag handle */
 .contact-drag-area {
   cursor: grab;
 }
 .contact-drag-area:active {
   cursor: grabbing;
 }
-/* Ensure contact popup uses fixed positioning and shows grab cursor */
-#popup-contact {
-  position: fixed; /* better for viewport-based dragging */
-  cursor: grab;
-}
-
-/* show grabbing cursor while active */
-#popup-contact:active {
-  cursor: grabbing;
-}
-
-/* optional: reduce transitions while dragging for snappy movement */
-#popup-contact.dragging {
-  transition: none !important;
-}
 
 
 /* ★★★★★ ARTWORK POPUP — FIXED AND CLEAN ★★★★★ */
+
 
 #popup-artwork {
   position: fixed;
   top: 40%;
   left: 55%;
-  transform: translate(-50%, -50%) scale(0.85);
+  transform: translate(-50%, -50%) scale(1); /* stable base state */
   width: 425px;
   height: auto;
   padding: 0;
@@ -412,8 +469,15 @@ body {
 
   display: none;
   opacity: 1;
-  transition: 0.25s ease;
   z-index: 9999;
+
+  /* use animation system ONLY */
+  animation: popupScale 0.35s ease;
+}
+
+/* Close animation — SAME as About Me */
+#popup-artwork.closing {
+  animation: popupClose 0.3s ease forwards;
 }
 
 #popup-artwork.show {
@@ -421,6 +485,8 @@ body {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
+
+
 
 /* Desk container */
 .desk-container {
@@ -535,4 +601,8 @@ body {
 
 
 
-.popup-window:active { cursor: grabbing; }
+
+
+
+
+.popup-window:active { cursor: grabbing; } 

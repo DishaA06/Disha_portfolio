@@ -41,6 +41,11 @@ function animateClose(popup) {
   setTimeout(() => {
     popup.style.display = "none";
     popup.classList.remove("closing");
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%) scale(0.8)";
+    popup.style.opacity = "0";
+    delete popup.dataset.moved;
   }, 300);
 }
 
@@ -61,7 +66,7 @@ if (aboutBtn) {
   });
 }
 
-// Close when clicking outside
+// Close About Me popups when clicking outside
 document.addEventListener("click", (e) => {
   if (!aboutPopups.some(p => p.contains(e.target)) && !aboutBtn.contains(e.target)) {
     closeAboutPopups();
@@ -70,22 +75,26 @@ document.addEventListener("click", (e) => {
 
 /* ================= DRAG FUNCTION ================= */
 function makeDraggable(el) {
-  let dragging = false, offsetX = 0, offsetY = 0;
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
 
   el.addEventListener("mousedown", (e) => {
-    if (e.target.closest("button")) return; // ignore buttons inside popup
-    dragging = true;
+    if (e.target.closest("button")) return;
+
+    isDragging = true;
+    el.dataset.moved = "true";
 
     const rect = el.getBoundingClientRect();
-    const computedStyle = window.getComputedStyle(el);
-
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
 
-    el.style.position = "absolute";
-    el.style.left = rect.left - parseFloat(computedStyle.marginLeft || 0) + "px";
-    el.style.top = rect.top - parseFloat(computedStyle.marginTop || 0) + "px";
-    el.style.zIndex = Date.now();
+    el.style.position = "fixed";
+    el.style.left = rect.left + "px";
+    el.style.top = rect.top + "px";
+    el.style.margin = "0";
+    el.style.transform = "none";
+    el.style.zIndex = 9999;
     el.style.cursor = "grabbing";
     el.style.transition = "none";
 
@@ -93,18 +102,97 @@ function makeDraggable(el) {
   });
 
   document.addEventListener("mousemove", (e) => {
-    if (!dragging) return;
-    el.style.left = e.clientX - offsetX + "px";
-    el.style.top = e.clientY - offsetY + "px";
+    if (!isDragging) return;
+    el.style.left = `${e.clientX - offsetX}px`;
+    el.style.top = `${e.clientY - offsetY}px`;
   });
 
   document.addEventListener("mouseup", () => {
-    if (!dragging) return;
-    dragging = false;
+    if (!isDragging) return;
+    isDragging = false;
     el.style.cursor = "grab";
     el.style.transition = "";
   });
 }
 
-// ---------- MAKE ABOUT ME POPUPS DRAGGABLE ----------
+/* ================= ARTWORK POPUP ================= */
+const artworkPopup = document.getElementById("popup-artwork");
+const artworkBtn = document.getElementById("artwork-btn");
+
+if (artworkBtn && artworkPopup) {
+  artworkBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (artworkPopup.style.display === "block") return;
+
+    artworkPopup.style.display = "block";
+    requestAnimationFrame(() => {
+      artworkPopup.classList.remove("closing");
+      artworkPopup.style.opacity = "1";
+      artworkPopup.style.transform = "translate(-50%, -50%) scale(1)";
+    });
+  });
+
+  // Prevent internal clicks from closing
+  artworkPopup.addEventListener("click", (e) => e.stopPropagation());
+}
+
+// Close artwork popup when clicking outside
+document.addEventListener("click", (e) => {
+  if (
+    artworkPopup &&
+    artworkPopup.style.display === "block" &&
+    !artworkPopup.contains(e.target) &&
+    !artworkBtn.contains(e.target)
+  ) {
+    animateClose(artworkPopup);
+  }
+});
+
+const contactBtn = document.getElementById("contact-label"); // corrected
+const contactPopup = document.getElementById("popup-contact");
+
+if (contactBtn && contactPopup) {
+  // Open contact popup
+  contactBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    contactPopup.style.display = "block";
+    requestAnimationFrame(() => {
+      contactPopup.classList.add("show");
+    });
+  });
+
+  // Prevent internal clicks from closing
+  contactPopup.addEventListener("click", (e) => e.stopPropagation());
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      contactPopup.style.display === "block" &&
+      !contactPopup.contains(e.target) &&
+      !contactBtn.contains(e.target)
+    ) {
+      contactPopup.classList.remove("show");
+      setTimeout(() => {
+        contactPopup.style.display = "none";
+      }, 250); // match CSS transition
+    }
+  });
+
+  // Optional: Make draggable if makeDraggable exists
+  if (typeof makeDraggable === "function") makeDraggable(contactPopup);
+}
+
+const cardInner = document.querySelector("#contact-card .card-inner");
+
+cardInner.addEventListener("dblclick", () => {
+  cardInner.classList.toggle("flipped");
+});
+
+
+
+
+
+/* ================= MAKE POPUPS DRAGGABLE ================= */
 aboutPopups.forEach(popup => makeDraggable(popup));
+if (artworkPopup) makeDraggable(artworkPopup);
+if (contactPopup) makeDraggable(contactPopup);
