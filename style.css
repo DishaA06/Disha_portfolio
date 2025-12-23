@@ -188,7 +188,8 @@ body {
 .sticky-note:hover{
   box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
   cursor: grabbing;
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: duration timing-function delay iteration-count direction fill-mode;
+
   }
 
 .sticky-note.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
@@ -585,8 +586,7 @@ body {
   box-shadow:
     0 12px 30px rgba(0,0,0,0.25),
     inset 0 0 0.5px rgba(0,0,0,0.3);
-  background-image:
-    url("assets/paper-texture.png"); /* very subtle */
+
   background-size: cover;
   transform: rotate(-1.2deg);
   transition: transform 0.4s ease;
