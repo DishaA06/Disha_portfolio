@@ -4,8 +4,7 @@ Welcome to my personal portfolio repository!
 This project showcases my work as an engineering student with a strong interest in **software development, frontend engineering, and real-world problem solving**.
 
 ##  Live Portfolio
-(TO BE ADDED SOON)
-
+https://dishaa06.github.io/Disha_portfolio/
 ---
 
 ##  About Me
@@ -59,7 +58,7 @@ Currently exploring opportunities as an **SDE Intern**.
 
 -  Email: doza57524@gmail.com  
 -  LinkedIn: [linkedin.com/in/disha-oza-bba48928a](https://www.linkedin.com/in/disha-oza-bba48928a)  
-
+- Portfolio: https://dishaa06.github.io/Disha_portfolio/
 ---
 
 ⭐ If you like my work, feel free to star this repository!
