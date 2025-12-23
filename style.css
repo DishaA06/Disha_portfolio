@@ -291,11 +291,8 @@ body {
   fill: #0080ff;
 }
 
-
-
 /* ================= CONTACT POPUP ================= */
 #popup-contact {
-  color: rgb(17, 255, 0);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -303,19 +300,17 @@ body {
   width: 300px;
   padding: 0;
   border-radius: 12px;
-
   display: none;
   opacity: 0;
-
-  z-index: 99999;
+  box-sizing: border-box;
+  z-index: 0;
   cursor: grab;
 
   /* REMOVE ANY BACKGROUND */
   background: transparent;
-  backdrop-filter: none;
+  backdrop-filter: none;  
   
 
-  color: #000000;
 
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
@@ -341,8 +336,8 @@ body {
 .contact-icons {
   display: flex;
   justify-content: center;
-  gap: 20px; /* spacing between icons */
-  margin-top: 15px;
+  gap: 90px; /* spacing between icons */
+  margin-top: 40px;
 }
 
 
@@ -350,24 +345,26 @@ body {
 .card-front h1 {
   font-family: 'Impact', 'Arial Black', sans-serif; /* Bold, blocky font */
   font-size: 2.5rem;  /* Increase size */
-  font-weight: 900;   /* Extra bold */
-  letter-spacing: 1px; /* Optional: spacing between letters */
-  text-align: center;  /* Center the text */
+  font-weight: 9000;   /* Extra bold */
+  letter-spacing: 2px; /* Optional: spacing between letters */
+  text-align: left;  /* Center the text */
   color: #1a1a1a;     /* Dark color for visibility */
   margin: 20px 0;     /* Adjust spacing as needed */
 }
 
 .contact-icon {
-  width: 30px;  /* adjust size */
-  height: 30px;
-  fill: #0042b3; /* icon color */
+  width: 50px;  /* adjust size */
+  height: 35px;
+  fill: #80afff; /* icon color */
   transition: transform 0.3s ease, filter 0.3s ease;
   cursor: pointer;
+  
 }
 
 .contact-icon:hover {
   transform: scale(1.2);
-  filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 0 5px rgba(66, 115, 189, 0.5));
+
 }
 
 .contact-card {
@@ -376,7 +373,7 @@ body {
   font-family: "Poppins", sans-serif;
   background: #ffffff; /* card itself has white background */
   border-radius: 12px;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
 }
 
 .contact-card h3 {
@@ -433,7 +430,7 @@ body {
 }
 
 .contact-card a {
-  color: #0042b3;
+  color: #b30000;
   text-decoration: none;
   font-weight: 500;
 }
