@@ -220,9 +220,6 @@ if (contactBtn && contactPopup) {
 
 
 /* ================= DRAG ENABLE ================= */
-aboutPopups.forEach(p => makeDraggable(p));
-if (artworkPopup) makeDraggable(artworkPopup, artworkPopup.querySelector(".titlebar") || artworkPopup);
-if (contactPopup) makeDraggable(contactPopup, contactPopup.querySelector(".titlebar") || contactPopup);
 aboutPopups.forEach(p => makeDraggable(p, p.querySelector(".titlebar") || p));
 makeDraggable(artworkPopup, artworkPopup.querySelector(".titlebar") || artworkPopup);
 makeDraggable(contactPopup, contactPopup.querySelector(".titlebar") || contactPopup);
