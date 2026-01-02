@@ -136,6 +136,10 @@ body {
   box-shadow: 0 0 12px #a0cbff;
 }
 
+.label:active {
+  cursor: grabbing;
+}
+
 .top-left { top: 10px; left: -390px; font-weight: bold; }
 .top-right { top: -100px; right: -360px; font-weight: bold; }
 .bottom-left { bottom: -160px; left: -340px; font-weight: bold; }
@@ -199,9 +203,11 @@ body {
 
 
 /* Popup windows */
-#popup-container { position: absolute; inset: 0; pointer-events: none; }
+#popup-container { position: absolute; inset: 0; pointer-events: none; z-index:3000; }
 
 .popup-window {
+  opacity:0;
+  transform:scale(0.8);
   margin-top: 180px;
   margin-left: 22%;
   width: 360px;
@@ -215,7 +221,10 @@ body {
   cursor: grab;
   z-index: 1000;
 }
-
+.popup-window.show {
+  opacity: 1;
+  transform: scale(1);
+}
 @keyframes popupScale {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
@@ -485,7 +494,6 @@ body {
 }
 
 
-
 /* Desk container */
 .desk-container {
   padding: 12px;
@@ -595,10 +603,6 @@ body {
 .business-card:hover {
   transform: rotate(0deg) scale(1.02);
 }
-
-
-
-
 
 
 
