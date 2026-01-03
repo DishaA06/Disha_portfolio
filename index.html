@@ -43,8 +43,96 @@
 </span>
 
       <span class="label center-bottom">Projects</span>
+
+<!-- ///////////////////////////////////////// -->
+      <div class="popup-window folder-popup" id="projects-popup">
+  <div class="titlebar">
+    <span class="dot red" id="close-projects"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+
+  <div class="folder-content">
+    <div class="file-icon" data-project="zbot">
+      <img src="assets/image.png" />
+      <p>ZBOT</p>
     </div>
 
+    <div class="file-icon" data-project="mclaren">
+      <img src="assets/image.png" />
+      <p>McLaren</p>
+    </div>
+
+    <div class="file-icon" data-project="floatchat">
+      <img src="assets/image.png" />
+      <p>FloatChat</p>
+    </div>
+
+    <div class="file-icon" data-project="opensource">
+      <img src="assets/image.png" />
+      <p>Open Source (EXTRAS) </p>
+    </div>
+  </div>
+</div>
+
+<div class="popup-window project-popup" id="project-popup">
+  <div class="titlebar">
+    <span class="dot red" id="close-project-popup"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+
+  <div class="project-body">
+    <div class="project-media">
+      <img id="project-img" src="" alt="project preview" />
+      <!-- video tag can be toggled via JS if needed -->
+      <!-- <video id="project-video" controls></video> -->
+    </div>
+
+    <div class="project-text">
+      <h3 id="project-title"></h3>
+      <p id="project-desc"></p>
+
+      <div class="project-links">
+        <a id="project-github" target="_blank">GitHub ↗</a>
+        <a id="project-demo" target="_blank">Demo ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="popup-window os-popup" id="opensource-popup">
+  <div class="titlebar">
+    <span class="dot red" id="close-opensource"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+
+  <div class="os-body">
+    <h3>Open Source Contributions</h3>
+
+    <ul>
+      <li>
+        <span>GSSoC ’25 — Bookmark Feature</span>
+        <a href="#" target="_blank">View ↗</a>
+      </li>
+      <li>
+        <span>README & Docs Improvements</span>
+        <a href="#" target="_blank">View ↗</a>
+      </li>
+      <li>
+        <span>Small Feature Fixes & PRs</span>
+        <a href="#" target="_blank">View ↗</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- //////////////////////// -->
+
+
+    </div>
     <div class="sticky-note" id="sticky-note">
       <h3>TO DO FOR 2026:</h3>
       <ul>

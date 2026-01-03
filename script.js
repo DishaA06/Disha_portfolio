@@ -219,7 +219,163 @@ if (contactBtn && contactPopup) {
 
 
 
-/* ================= DRAG ENABLE ================= */
+/* ================= PROJECTS POPUP ================= */
+
+const projectsLabel = document.querySelector(".label.center-bottom");
+const projectsPopup = document.getElementById("projects-popup");
+
+if (projectsLabel && projectsPopup) {
+  projectsLabel.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (projectsPopup.style.display === "block") return;
+
+    projectsPopup.style.display = "block";
+    projectsPopup.style.opacity = "1";
+    projectsPopup.style.transform = "none";
+  });
+
+  projectsPopup.addEventListener("click", e => e.stopPropagation());
+
+  document.addEventListener("click", (e) => {
+    if (isDraggingGlobal) return;
+
+    if (
+      projectsPopup.style.display === "block" &&
+      !projectsPopup.contains(e.target) &&
+      !projectsLabel.contains(e.target)
+    ) {
+      animateClose(projectsPopup);
+    }
+  });
+}
+/* ================= PROJECT DETAIL ================= */
+
+const projectPopup = document.getElementById("project-popup");
+const projectImg = document.getElementById("project-img");
+const projectTitle = document.getElementById("project-title");
+const projectDesc = document.getElementById("project-desc");
+const projectGithub = document.getElementById("project-github");
+const projectDemo = document.getElementById("project-demo");
+
+const projectData = {
+  zbot: {
+    title: "ZBOT",
+    desc: "An AI-powered chatbot designed for personalized interactions and automation.",
+    img: "assets/projects/zbot-1.png",
+    github: "https://github.com/yourusername/zbot",
+    demo: ""
+  },
+  mclaren: {
+    title: "McLaren Website",
+    desc: "A high-fidelity frontend website inspired by McLaren’s design language.",
+    img: "assets/projects/mclaren.png",
+    github: "https://github.com/yourusername/mclaren",
+    demo: "https://yourdemo.link"
+  },
+  floatchat: {
+    title: "FloatChat",
+    desc: "Frontend UI for a real-time floating chat application.",
+    img: "assets/projects/floatchat.png",
+    github: "https://github.com/yourusername/floatchat",
+    demo: ""
+  }
+};
+
+document.querySelectorAll(".file-icon").forEach(icon => {
+  icon.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const key = icon.dataset.project;
+
+    if (key === "opensource") {
+      if (opensourcePopup) {
+        opensourcePopup.style.display = "block";
+        opensourcePopup.style.opacity = "1";
+        opensourcePopup.style.transform = "none";
+      }
+      return;
+    }
+
+    const data = projectData[key];
+    if (!data || !projectPopup) return;
+
+    projectImg.src = data.img;
+    projectTitle.textContent = data.title;
+    projectDesc.textContent = data.desc;
+    projectGithub.href = data.github;
+
+    if (data.demo) {
+      projectDemo.href = data.demo;
+      projectDemo.style.display = "inline";
+    } else {
+      projectDemo.style.display = "none";
+    }
+
+    projectPopup.style.display = "block";
+    projectPopup.style.opacity = "1";
+    projectPopup.style.transform = "none";
+  });
+});
+
+if (projectPopup) {
+  projectPopup.addEventListener("click", e => e.stopPropagation());
+
+  document.addEventListener("click", (e) => {
+    if (isDraggingGlobal) return;
+
+    if (
+      projectPopup.style.display === "block" &&
+      !projectPopup.contains(e.target)
+    ) {
+      animateClose(projectPopup);
+    }
+  });
+}
+/* ================= OPEN SOURCE ================= */
+
+const opensourcePopup = document.getElementById("opensource-popup");
+
+if (opensourcePopup) {
+  opensourcePopup.addEventListener("click", e => e.stopPropagation());
+
+  document.addEventListener("click", (e) => {
+    if (isDraggingGlobal) return;
+
+    if (
+      opensourcePopup.style.display === "block" &&
+      !opensourcePopup.contains(e.target)
+    ) {
+      animateClose(opensourcePopup);
+    }
+  });
+}
+
+
+
+
+/* ================= DRAG ENABLE FOR ARTWORK AND CONTACT ================= */
 aboutPopups.forEach(p => makeDraggable(p));
 if (artworkPopup) makeDraggable(artworkPopup, artworkPopup.querySelector(".titlebar") || artworkPopup);
 if (contactPopup) makeDraggable(contactPopup, contactPopup.querySelector(".titlebar") || contactPopup);
+/* ================= DRAG ENABLE – PROJECTS ================= */
+
+if (projectsPopup) {
+  makeDraggable(
+    projectsPopup,
+    projectsPopup.querySelector(".titlebar") || projectsPopup
+  );
+}
+
+if (projectPopup) {
+  makeDraggable(
+    projectPopup,
+    projectPopup.querySelector(".titlebar") || projectPopup
+  );
+}
+
+if (opensourcePopup) {
+  makeDraggable(
+    opensourcePopup,
+    opensourcePopup.querySelector(".titlebar") || opensourcePopup
+  );
+}

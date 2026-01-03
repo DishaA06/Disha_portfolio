@@ -335,6 +335,188 @@ body {
 
 
 /* ================= PROJECT POPUP ================== */
+/* =========================
+   PROJECTS – FOLDER POPUP
+   ========================= */
+
+.folder-popup {
+  width: 480px;
+  height: 300px;
+  background: #fffaf0;
+  border-radius: 26px;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  box-shadow: 0 60px 60px rgba(0, 0, 0, 0.25);
+  display: none;
+  z-index: 3000;
+  
+}
+
+/* Folder content layout */
+.folder-content {
+  padding: 29px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 22px;
+  justify-items: center;
+}
+
+/* Individual file icons */
+.folder-popup .file-icon {
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.folder-popup .file-icon:hover {
+  transform: scale(1.08);
+}
+
+.folder-popup .file-icon img {
+  width: 52px;
+  height: 52px;  
+  /* size of pop up icons  */
+}
+
+.folder-popup .file-icon p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #000000 ;
+  font-weight: 200;
+}
+
+/* =========================
+   PROJECT DETAIL POPUP
+   ========================= */
+
+.project-popup {
+  width: 720px;
+  height: 420px;
+  background: #a3d3ff;
+  border-radius: 26px;
+  position: fixed;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  box-shadow: 0 70px 70px rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 3100;
+
+}
+
+
+
+/* Main body */
+.project-body {
+  display: flex;
+  gap: 22px;
+  padding: 26px;
+  height: calc(100% - 42px);
+}
+
+/* Media section */
+.project-media {
+  flex: 1;
+  background: #f2f2f2;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-media img,
+.project-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text section */
+.project-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-text h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.project-text p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  flex-grow: 1;
+}
+
+/* Links */
+.project-links {
+  display: flex;
+  gap: 16px;
+}
+
+.project-links a {
+  font-size: 14px;
+  text-decoration: none;
+  color: #1a73e8;
+}
+
+.project-links a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   OPEN SOURCE POPUP
+   ========================= */
+
+.os-popup {
+  width: 460px;
+  background: #fffaf0;
+  border-radius: 16px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.25);
+  display: none;
+  z-index: 3050;
+}
+
+.os-body {
+  padding: 24px;
+}
+
+.os-body h3 {
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.os-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.os-body li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.os-body a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.os-body a:hover {
+  text-decoration: underline;
+}
 
 
 /* ================= CONTACT POPUP ================= */
