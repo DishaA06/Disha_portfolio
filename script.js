@@ -158,8 +158,10 @@ document.addEventListener("click", (e) => {
 
 
 /* ================= ARTWORK POPUP ================= */
-const artworkPopup = document.getElementById("popup-artwork");
-const artworkBtn = document.getElementById("artwork-btn");
+artworkPopup = document.getElementById("popup-artwork");
+artworkBtn = document.getElementById("artwork-btn");
+
+
 artworkPopup.style.position = "fixed";
 artworkPopup.style.left = "30%";
 artworkPopup.style.top = "10%";
@@ -193,8 +195,9 @@ document.addEventListener("click", (e) => {
 });
 
 /* ================= CONTACT POPUP ================= */
-const contactBtn = document.getElementById("contact-label");
-const contactPopup = document.getElementById("popup-contact");
+contactBtn = document.getElementById("contact-label");
+contactPopup = document.getElementById("popup-contact");
+
 
 if (contactBtn && contactPopup) {
   contactBtn.addEventListener("click", (e) => {
@@ -257,29 +260,44 @@ const projectDesc = document.getElementById("project-desc");
 const projectGithub = document.getElementById("project-github");
 const projectDemo = document.getElementById("project-demo");
 
+/* ================= OPEN SOURCE ================= */
+
+const opensourcePopup = document.getElementById("opensource-popup");
+
+/* ================= PROJECT DATA ================= */
+
 const projectData = {
   zbot: {
-    title: "ZBOT",
-    desc: "An AI-powered chatbot designed for personalized interactions and automation.",
-    img: "assets/projects/zbot-1.png",
-    github: "https://github.com/yourusername/zbot",
-    demo: ""
-  },
+  title: "ZBOT",
+  desc: "An AI-powered chatbot designed for personalized interactions and automation.",
+  img: "assets/zbot.png",
+  github: "https://github.com/DishaA06/ZBOT",
+  demo: ""
+},
   mclaren: {
     title: "McLaren Website",
     desc: "A high-fidelity frontend website inspired by McLaren’s design language.",
-    img: "assets/projects/mclaren.png",
-    github: "https://github.com/yourusername/mclaren",
+    img: "assets/mclaren.png",
+    github: "https://github.com/DishaA06/CAR-WEBSITE-",
     demo: "https://yourdemo.link"
   },
   floatchat: {
     title: "FloatChat",
     desc: "Frontend UI for a real-time floating chat application.",
-    img: "assets/projects/floatchat.png",
-    github: "https://github.com/yourusername/floatchat",
-    demo: ""
+    img: "assets/floatchat.png",
+    github: "https://github.com/DishaA06/FLOATCHAT",
+    demo: "https://yourdemo.link"
+  },
+  code_complexity_analyser: {
+    title: "Code Complexity Analyser",
+    desc: "A tool to analyze and visualize the complexity of codebases.",
+    img: "assets/code_complexity_analyser.png",
+    github: "https://github.com/DishaA06/code_complexity_analyzer",
+    demo: "https://yourdemo.link"
   }
 };
+
+/* ================= FILE ICON CLICKS ================= */
 
 document.querySelectorAll(".file-icon").forEach(icon => {
   icon.addEventListener("click", (e) => {
@@ -317,6 +335,8 @@ document.querySelectorAll(".file-icon").forEach(icon => {
   });
 });
 
+/* ================= PROJECT POPUP CLOSE ================= */
+
 if (projectPopup) {
   projectPopup.addEventListener("click", e => e.stopPropagation());
 
@@ -331,9 +351,8 @@ if (projectPopup) {
     }
   });
 }
-/* ================= OPEN SOURCE ================= */
 
-const opensourcePopup = document.getElementById("opensource-popup");
+/* ================= OPEN SOURCE CLOSE ================= */
 
 if (opensourcePopup) {
   opensourcePopup.addEventListener("click", e => e.stopPropagation());
@@ -349,7 +368,6 @@ if (opensourcePopup) {
     }
   });
 }
-
 
 
 
