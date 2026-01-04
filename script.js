@@ -30,7 +30,7 @@ function makeDraggable(el, handle = el) {
 
     const rect = el.getBoundingClientRect();
 
-    // 🔥 CRITICAL RESET
+    //  CRITICAL RESET
     el.style.transform = "none";
     el.style.margin = "0";
     el.style.position = "fixed";
@@ -272,7 +272,7 @@ const projectData = {
   desc: "An AI-powered chatbot designed for personalized interactions and automation.",
   img: "assets/zbot.png",
   github: "https://github.com/DishaA06/ZBOT",
-  demo: ""
+  demo: "https://yourdemo.link"
 },
   mclaren: {
     title: "McLaren Website",
@@ -305,15 +305,7 @@ document.querySelectorAll(".file-icon").forEach(icon => {
 
     const key = icon.dataset.project;
 
-    if (key === "opensource") {
-      if (opensourcePopup) {
-        opensourcePopup.style.display = "block";
-        opensourcePopup.style.opacity = "1";
-        opensourcePopup.style.transform = "none";
-      }
-      return;
-    }
-
+    
     const data = projectData[key];
     if (!data || !projectPopup) return;
 
@@ -352,48 +344,28 @@ if (projectPopup) {
   });
 }
 
-/* ================= OPEN SOURCE CLOSE ================= */
 
-if (opensourcePopup) {
-  opensourcePopup.addEventListener("click", e => e.stopPropagation());
-
-  document.addEventListener("click", (e) => {
-    if (isDraggingGlobal) return;
-
-    if (
-      opensourcePopup.style.display === "block" &&
-      !opensourcePopup.contains(e.target)
-    ) {
-      animateClose(opensourcePopup);
-    }
-  });
-}
 
 
 
 /* ================= DRAG ENABLE FOR ARTWORK AND CONTACT ================= */
 aboutPopups.forEach(p => makeDraggable(p));
 if (artworkPopup) makeDraggable(artworkPopup, artworkPopup.querySelector(".titlebar") || artworkPopup);
-if (contactPopup) makeDraggable(contactPopup, contactPopup.querySelector(".titlebar") || contactPopup);
+if (contactPopup) makeDraggable(contactPopup, contactPopup.querySelector(".popup") || contactPopup);
 /* ================= DRAG ENABLE – PROJECTS ================= */
 
 if (projectsPopup) {
   makeDraggable(
     projectsPopup,
-    projectsPopup.querySelector(".titlebar") || projectsPopup
+    projectsPopup.querySelector(".popup") || projectsPopup
   );
 }
 
 if (projectPopup) {
   makeDraggable(
     projectPopup,
-    projectPopup.querySelector(".titlebar") || projectPopup
+    projectPopup.querySelector(".popup") || projectPopup
   );
 }
 
-if (opensourcePopup) {
-  makeDraggable(
-    opensourcePopup,
-    opensourcePopup.querySelector(".titlebar") || opensourcePopup
-  );
-}
+
