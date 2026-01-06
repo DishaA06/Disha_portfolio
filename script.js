@@ -350,7 +350,7 @@ if (projectPopup) {
 
 /* ================= DRAG ENABLE FOR ARTWORK AND CONTACT ================= */
 aboutPopups.forEach(p => makeDraggable(p));
-if (artworkPopup) makeDraggable(artworkPopup, artworkPopup.querySelector(".titlebar") || artworkPopup);
+if (artworkPopup) makeDraggable(artworkPopup, artworkPopup.querySelector(".popup") || artworkPopup);
 if (contactPopup) makeDraggable(contactPopup, contactPopup.querySelector(".popup") || contactPopup);
 /* ================= DRAG ENABLE – PROJECTS ================= */
 
