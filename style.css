@@ -409,6 +409,7 @@ body {
 
 /* Main body */
 .project-body {
+  
   display: flex;
   gap: 22px;
   padding: 20px;
@@ -468,6 +469,34 @@ body {
 .project-links a:hover {
   text-decoration: underline;
 }
+
+/* For Skills & Experience / Experience icons */
+.skills-exp-content .exp-icon img {
+    width: 80px;   /* or 60px if you want smaller */
+    height: 80px;  /* keep it square */
+    object-fit: contain;  /* ensures it scales nicely */
+}
+
+/* For artwork icons (pencil, brush, eraser) */
+
+.skills-exp-content {
+  background-color: #b6d7ff;
+    display: flex;
+    flex-wrap: wrap;       /* allows multiple rows */
+    gap: 5px;             /* spacing between icons */
+    justify-content: center; /* center them horizontally */
+}
+
+.skills-exp-content .exp-icon {
+    flex: 0 0 33.33%;  /* takes 30% of container width → 3 per row */
+    text-align: center;
+}
+.exp-icon img {
+    max-width: 30px;
+    height: 30px;
+}
+
+
 
 
 /* =========================

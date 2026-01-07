@@ -157,6 +157,139 @@ document.addEventListener("click", (e) => {
 });
 
 
+/* ================= SKILLS & EXPERIENCE ================= */
+
+const skillsExpLabel = document.getElementById("skills-exp-btn");
+const skillsExpPopup = document.getElementById("skills-exp-popup");
+
+
+const expImagePopup = document.getElementById("exp-img-popup");
+const expDescPopup = document.getElementById("exp-desc-popup");
+
+const expImageEl = document.getElementById("exp-img");
+const expTitleEl = document.getElementById("exp-title");
+const expTimelineEl = document.getElementById("exp-duration"); // fixed
+const expDescEl = document.getElementById("exp-description");
+
+
+/* ================= EXPERIENCE DATA ================= */
+
+const experienceData = {
+  google: {
+    title: "Campus Ambassador — Google Gemini",
+    timeline: "May 2025 – Present",
+    desc: "Representing and promoting Google Gemini initiatives on campus.",
+    img: "assets/circle.png"
+  },
+  gssoc: {
+    title: "Open Source Contributor — GSSoC",
+    timeline: "June 2025 – Present",
+    desc: "Contributed to open source projects in a collaborative environment.",
+    img: "assets/circle.png"
+  },
+  cisco: {
+    title: "Cisco Virtual Intern — AICTE",
+    timeline: "Jan 2024 – Mar 2024",
+    desc: "Completed industry aligned networking and cybersecurity training.",
+    img: "assets/circle.png"
+  },
+  rnd: {
+    title: "R&D Department — College",
+    timeline: "Early Stage",
+    desc: "Involved in academic research and technical exploration.",
+    img: "assets/circle.png"
+  },
+  palmonas: {
+    title: "Selected Intern — Palmonas",
+    timeline: "Offer Received",
+    desc: "Selected for internship opportunity (offer not joined).",
+    img: "assets/circle.png"
+  }
+};
+
+/* ================= MAIN POPUP OPEN ================= */
+
+if (skillsExpLabel && skillsExpPopup) {
+  skillsExpLabel.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    skillsExpPopup.style.display = "block";
+    skillsExpPopup.style.opacity = "1";
+    skillsExpPopup.style.left = "50%";
+skillsExpPopup.style.top = "50%";
+skillsExpPopup.style.transform = "translate(-50%, -50%) scale(1)";
+
+  });
+
+  skillsExpPopup.addEventListener("click", e => e.stopPropagation());
+
+  document.addEventListener("click", (e) => {
+    if (isDraggingGlobal) return;
+
+    if (
+      skillsExpPopup.style.display === "block" &&
+      !skillsExpPopup.contains(e.target) &&
+      !skillsExpLabel.contains(e.target)
+    ) {
+      animateClose(skillsExpPopup);
+    }
+  });
+}
+
+/* ================= EXPERIENCE ICON CLICK ================= */
+
+document.querySelectorAll(".exp-icon").forEach(item => {
+  item.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const key = item.dataset.exp;
+    const data = experienceData[key];
+    if (!data) return;
+
+    // IMAGE POPUP
+    expImageEl.src = data.img;
+    expImagePopup.style.display = "block";
+    expImagePopup.style.opacity = "1";
+    expImagePopup.style.transform = "none";
+
+    // DESCRIPTION POPUP
+    expTitleEl.textContent = data.title;
+    expTimelineEl.textContent = data.timeline;
+    expDescEl.textContent = data.desc;
+
+    expDescPopup.style.display = "block";
+    expDescPopup.style.opacity = "1";
+    expDescPopup.style.transform = "none";
+  });
+});
+
+
+/* ================= CLOSE EXPERIENCE POPUPS ================= */
+
+document.addEventListener("click", (e) => {
+  if (isDraggingGlobal) return;
+
+  if (
+    expImagePopup.style.display === "block" &&
+    !expImagePopup.contains(e.target)
+  ) {
+    animateClose(expImagePopup);
+  }
+
+  if (
+    expDescPopup.style.display === "block" &&
+    !expDescPopup.contains(e.target)
+  ) {
+    animateClose(expDescPopup);
+  }
+});
+
+/* ================= DRAG ENABLE ================= */
+
+if (skillsExpPopup) makeDraggable(skillsExpPopup, skillsExpPopup.querySelector(".titlebar") || skillsExpPopup);
+if (expImagePopup) makeDraggable(expImagePopup, expImagePopup.querySelector(".titlebar") || expImagePopup);
+if (expDescPopup) makeDraggable(expDescPopup, expDescPopup.querySelector(".titlebar") || expDescPopup);
+
+
 /* ================= ARTWORK POPUP ================= */
 artworkPopup = document.getElementById("popup-artwork");
 artworkBtn = document.getElementById("artwork-btn");
@@ -352,6 +485,14 @@ if (projectPopup) {
 aboutPopups.forEach(p => makeDraggable(p));
 if (artworkPopup) makeDraggable(artworkPopup, artworkPopup.querySelector(".popup") || artworkPopup);
 if (contactPopup) makeDraggable(contactPopup, contactPopup.querySelector(".popup") || contactPopup);
+
+
+
+/* ================= DRAG ENABLE – SKILLS & EXPERIENCE ================= */
+if (skillsExpPopup) makeDraggable(skillsExpPopup, skillsExpPopup.querySelector(".popup") || skillsExpPopup);
+if (expImagePopup) makeDraggable(expImagePopup, expImagePopup.querySelector(".popup") || expImagePopup);
+if (expDescPopup) makeDraggable(expDescPopup, expDescPopup.querySelector(".popup") || expDescPopup);
+
 /* ================= DRAG ENABLE – PROJECTS ================= */
 
 if (projectsPopup) {
