@@ -175,36 +175,31 @@ const expDescEl = document.getElementById("exp-description");
 /* ================= EXPERIENCE DATA ================= */
 
 const experienceData = {
-  google: {
+  gemini: {
     title: "Campus Ambassador — Google Gemini",
     timeline: "May 2025 – Present",
     desc: "Representing and promoting Google Gemini initiatives on campus.",
-    img: "assets/circle.png"
+    img: "assets/google.png"
   },
   gssoc: {
     title: "Open Source Contributor — GSSoC",
     timeline: "June 2025 – Present",
     desc: "Contributed to open source projects in a collaborative environment.",
-    img: "assets/circle.png"
+    img: "assets/contributor.png"
   },
   cisco: {
     title: "Cisco Virtual Intern — AICTE",
     timeline: "Jan 2024 – Mar 2024",
     desc: "Completed industry aligned networking and cybersecurity training.",
-    img: "assets/circle.png"
+    img: "assets/aicte.png"
   },
   rnd: {
     title: "R&D Department — College",
     timeline: "Early Stage",
     desc: "Involved in academic research and technical exploration.",
-    img: "assets/circle.png"
+    img: "assets/rnd.png"
   },
-  palmonas: {
-    title: "Selected Intern — Palmonas",
-    timeline: "Offer Received",
-    desc: "Selected for internship opportunity (offer not joined).",
-    img: "assets/circle.png"
-  }
+
 };
 
 /* ================= MAIN POPUP OPEN ================= */
