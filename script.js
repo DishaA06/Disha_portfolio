@@ -81,6 +81,16 @@ window.addEventListener('load', () => {
   const note = document.getElementById('sticky-note');
   if (note) setTimeout(() => note.classList.add('show'), 500);
 });
+// draggable sticky note
+window.addEventListener('load', () => {
+  const note = document.getElementById('sticky-note');
+  if (!note) return;
+
+  setTimeout(() => note.classList.add('show'), 500);
+
+  // 🔹 make sticky note draggable
+  makeDraggable(note);
+});
 
 /* ================= ABOUT ME POPUPS ================= */
 const aboutBtn = document.querySelector("#more-about-me");
