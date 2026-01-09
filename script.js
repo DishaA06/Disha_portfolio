@@ -174,32 +174,45 @@ const expDescEl = document.getElementById("exp-description");
 
 /* ================= EXPERIENCE DATA ================= */
 
-const experienceData = {
+const experienceData = { 
   gemini: {
     title: "Campus Ambassador — Google Gemini",
     timeline: "May 2025 – Present",
-    desc: "Representing and promoting Google Gemini initiatives on campus.",
+    desc: 
+      "1. Engaged with the student community as a Google Campus Ambassador\n" +
+      "2. Promoted Google programs and technical initiatives\n" +
+      "3. Created awareness about industry opportunities",
     img: "assets/google.png"
   },
   gssoc: {
     title: "Open Source Contributor — GSSoC",
     timeline: "June 2025 – Present",
-    desc: "Contributed to open source projects in a collaborative environment.",
+    desc: 
+      "1. Contributed to open-source projects as a GSSoC contributor \n" +
+      "2. Collaborated with teams to write and improve code \n" +
+      "3. Maintained and enhanced project documentation \n" +
+      "4. Improved understanding of version control and clean, maintainable code",
     img: "assets/contributor.png"
   },
   cisco: {
     title: "Cisco Virtual Intern — AICTE",
     timeline: "Jan 2024 – Mar 2024",
-    desc: "Completed industry aligned networking and cybersecurity training.",
+    desc: 
+      "1. Completed an AICTE Virtual Internship with industry-oriented exposure\n" +
+      "2. Worked on practical tasks aligned with real-world applications\n" +
+      "3. Applied theoretical knowledge to hands-on problem-solving\n" +
+      "4. Developed professional and analytical skills",
     img: "assets/aicte.png"
   },
   rnd: {
     title: "R&D Department — College",
     timeline: "Early Stage",
-    desc: "Involved in academic research and technical exploration.",
+    desc: 
+      "1. Analyzed problem statements and explored potential solutions\n" +
+      "2. Assisted in implementation and related tasks\n" +
+      "3. Strengthened logical thinking and experimentation skills",
     img: "assets/rnd.png"
-  },
-
+  }
 };
 
 /* ================= MAIN POPUP OPEN ================= */
@@ -249,7 +262,22 @@ document.querySelectorAll(".exp-icon").forEach(item => {
     // DESCRIPTION POPUP
     expTitleEl.textContent = data.title;
     expTimelineEl.textContent = data.timeline;
-    expDescEl.textContent = data.desc;
+    // Clear previous content
+expDescEl.innerHTML = "";
+
+// Create a <ul> for bullets
+const ul = document.createElement("ul");
+
+// Split the string by \n and create <li> for each point
+data.desc.split("\n").forEach(point => {
+  const li = document.createElement("li");
+  li.textContent = point.replace(/^\d+\.\s*/, ''); // optional: remove leading 1. 2. 3.
+  ul.appendChild(li);
+});
+
+// Append the list to the popup
+expDescEl.appendChild(ul);
+
 
     expDescPopup.style.display = "block";
     expDescPopup.style.opacity = "1";
@@ -397,28 +425,28 @@ const opensourcePopup = document.getElementById("opensource-popup");
 const projectData = {
   zbot: {
   title: "ZBOT",
-  desc: "An AI-powered chatbot designed for personalized interactions and automation.",
+  desc: "ZBOT is an AI-powered chatbot designed to deliver personalized and context-aware interactions. It focuses on creating smooth conversational flows while handling user queries efficiently. The project explores how AI can be used to automate responses, enhance user engagement, and build intelligent virtual assistants with real-world applicability.",
   img: "assets/zbot.png",
   github: "https://github.com/DishaA06/ZBOT",
   demo: "https://yourdemo.link"
 },
   mclaren: {
     title: "McLaren Website",
-    desc: "A high-fidelity frontend website inspired by McLaren’s design language.",
+    desc: "A high-fidelity frontend website inspired by McLaren’s design language and branding. This project focuses on clean layouts, smooth animations, and a premium user experience. It showcases attention to detail in UI design and responsiveness while translating a real-world brand’s aesthetic into a functional web interface.",
     img: "assets/mclaren.png",
     github: "https://github.com/DishaA06/CAR-WEBSITE-",
     demo: "https://yourdemo.link"
   },
   floatchat: {
     title: "FloatChat",
-    desc: "Frontend UI for a real-time floating chat application.",
+    desc: "FloatChat is a frontend user interface for a floating, real-time chat application. The project emphasizes intuitive UI, accessibility, and seamless user interaction. It demonstrates how modern frontend principles can be used to build lightweight, interactive chat components that enhance communication without interrupting the user experience.",
     img: "assets/floatchat.png",
     github: "https://github.com/DishaA06/FLOATCHAT",
     demo: "https://yourdemo.link"
   },
   code_complexity_analyser: {
     title: "Code Complexity Analyser",
-    desc: "A tool to analyze and visualize the complexity of codebases.",
+    desc: "Galactic Code Complexity Analyzer is a developer-focused tool designed to analyze and visualize the complexity of codebases. It helps identify highly complex sections of code, making it easier to understand, optimize, and maintain projects. The tool emphasizes clarity, usability, and meaningful insights, showcasing how analytical thinking and clean UI can come together to support better software development decisions.",
     img: "assets/code_complexity_analyser.png",
     github: "https://github.com/DishaA06/code_complexity_analyzer",
     demo: "https://yourdemo.link"
@@ -504,4 +532,89 @@ if (projectPopup) {
   );
 }
 
+// ================= GENERIC OPEN POPUP FUNCTION ================= */
+function openPopup(popup, options = {}) {
+  const { left = "50%", top = "50%", transform = "translate(-50%, -50%) scale(1)" } = options;
 
+  popup.style.display = "block";
+  popup.style.opacity = "1";
+  popup.style.position = "fixed";
+  popup.style.left = left;
+  popup.style.top = top;
+  popup.style.transform = transform;
+}
+
+
+// Skills & Experience popup → center
+skillsExpLabel.addEventListener("click", (e) => {
+  e.stopPropagation();
+  openPopup(skillsExpPopup, { left: "50%", top: "40%" });
+});
+
+// Experience image popup → left side
+expImagePopup.style.width = "300px"; // optional for neat layout
+expDescPopup.style.width = "300px";
+
+document.querySelectorAll(".exp-icon").forEach(item => {
+  item.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const key = item.dataset.exp;
+    const data = experienceData[key];
+    if (!data) return;
+
+    // Image
+    expImageEl.src = data.img;
+    openPopup(expImagePopup, { left: "35%", top: "45%" });
+
+    // Description
+    expTitleEl.textContent = data.title;
+    expTimelineEl.textContent = data.timeline;
+
+    // Render description as bullets
+    expDescEl.innerHTML = "";
+    const ul = document.createElement("ul");
+    data.desc.split("\n").forEach(point => {
+      const li = document.createElement("li");
+      li.textContent = point.replace(/^\d+\.\s*/, '');
+      ul.appendChild(li);
+    });
+    expDescEl.appendChild(ul);
+
+    // Description popup → right side
+    openPopup(expDescPopup, { left: "65%", top: "45%" });
+  });
+});
+
+
+
+
+
+
+
+document.querySelectorAll(".file-icon").forEach(icon => {
+  icon.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const key = icon.dataset.project;
+    const data = projectData[key];
+    if (!data || !projectPopup) return;
+
+    // Set project image & info
+    projectImg.src = data.img;
+    projectTitle.textContent = data.title;
+    projectDesc.textContent = data.desc;
+    projectGithub.href = data.github;
+
+    if (data.demo) {
+      projectDemo.href = data.demo;
+      projectDemo.style.display = "inline";
+    } else {
+      projectDemo.style.display = "none";
+    }
+
+    // Open the popup at a fixed position
+    // For example: center-left for image, center-right for details
+    // Here projectPopup is just one div, so we place it center
+    openPopup(projectPopup, { left: "50%", top: "45%" });
+  });
+});
