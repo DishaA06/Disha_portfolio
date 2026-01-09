@@ -130,10 +130,10 @@ body {
 }
 
 .label:hover {
-  background: #90c2ff;
+  background: #a0cbff;
   color: #000000;
   transform: scale(1.1) rotate(-3deg);
-  box-shadow: 0 0 12px #a0cbff;
+  box-shadow: 10 10 1px #a0cbff;
 }
 
 .label:active {
@@ -184,8 +184,8 @@ body {
   width: calc(100% - 80px);  /* similar spacing as top padding */
   
   backdrop-filter: blur(12px);
-  background: hsla(210, 100%, 76%, 0.793);
-  border: 1px solid rgb(89, 143, 200);
+  background: #a0cbff;
+  border: 1px solid #a0cbff;
   border-radius: 18px;
 
   display: flex;
@@ -207,7 +207,7 @@ body {
   left: -55%;
   transform: translate(-50%, -50%) scale(0);
   width: 400px;
-  background: #f7ffab;
+  background: #f4ff92;
   color: #000;
   padding: 25px;
   border-radius: 20px;
@@ -222,7 +222,7 @@ body {
 .sticky-note:hover{
   animation: all 0.3s ease;
   transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
-  box-shadow: 30px 30px 50px rgba(0,0,0,0.5);
+  box-shadow: 10px 10px 50px rgba(0,0,0,0.5);
   cursor: pointer;
   animation: duration timing-function delay iteration-count direction fill-mode;
 
@@ -263,7 +263,7 @@ body {
 }
 
 .titlebar {
-  background: #abd9ff;
+  background: #a0cbff;
   padding: 4px;
   display: flex;
   gap: 2px;
@@ -279,9 +279,8 @@ body {
 .popup-img { width: 100%; border-radius: 0 0 10px 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 
 #popup-text .popup-content {
-  font-weight: normal;
   font-style: normal;
-  font-family: 'Comic Sans MS', 'Cursive', sans-serif;
+  
   font-size: 16px;       /* ← add this */
   text-align: left;
   color: #000000;
@@ -330,7 +329,7 @@ body {
 
 .social-icons a:hover svg {
   transform: scale(1.2);
-  fill: #0080ff;
+  fill: #a0cbff;
 }
 
 
@@ -395,7 +394,7 @@ body {
 .project-popup {
   width: 720px;
   height: 420px;
-  background: rgb(171, 210, 255);
+  background: #a0cbff;
   border-radius: 26px;
   position: fixed;
   top: 50%;
@@ -533,7 +532,7 @@ body {
 
 .exp-desc-popup {
   position: relative;
-  background: hwb(209 65% 0%);
+  background: #a0cbff;
   padding: 12px 20px;
   border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -664,7 +663,7 @@ body {
 .contact-icon {
   width: 50px;  /* adjust size */
   height: 35px;
-  fill: #68b1fe; /* icon color */
+  fill: #a0cbff; /* icon color */
   transition: transform 0.3s ease, filter 0.3s ease;
   cursor: pointer;
   filter: grayscale(10);
@@ -672,7 +671,7 @@ body {
 
 .contact-icon:hover {
   transform: scale(1.2);
-  fill:#72c2ff;
+  fill: #a0cbff;
   filter:brightness(1);
 
 }

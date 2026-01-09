@@ -177,7 +177,7 @@ const expDescEl = document.getElementById("exp-description");
 const experienceData = { 
   gemini: {
     title: "Campus Ambassador — Google Gemini",
-    timeline: "May 2025 – Present",
+    timeline: "May 2025 – December 2025",
     desc: 
       "1. Engaged with the student community as a Google Campus Ambassador\n" +
       "2. Promoted Google programs and technical initiatives\n" +
@@ -186,17 +186,16 @@ const experienceData = {
   },
   gssoc: {
     title: "Open Source Contributor — GSSoC",
-    timeline: "June 2025 – Present",
+    timeline: "June 2025 – September 2025",
     desc: 
       "1. Contributed to open-source projects as a GSSoC contributor \n" +
       "2. Collaborated with teams to write and improve code \n" +
-      "3. Maintained and enhanced project documentation \n" +
-      "4. Improved understanding of version control and clean, maintainable code",
+      "3. Maintained and enhanced project documentation ",
     img: "assets/contributor.png"
   },
   cisco: {
     title: "Cisco Virtual Intern — AICTE",
-    timeline: "Jan 2024 – Mar 2024",
+    timeline: "October – November 2024",
     desc: 
       "1. Completed an AICTE Virtual Internship with industry-oriented exposure\n" +
       "2. Worked on practical tasks aligned with real-world applications\n" +
@@ -206,7 +205,7 @@ const experienceData = {
   },
   rnd: {
     title: "R&D Department — College",
-    timeline: "Early Stage",
+    timeline: "EARLY STAGE",
     desc: 
       "1. Analyzed problem statements and explored potential solutions\n" +
       "2. Assisted in implementation and related tasks\n" +
