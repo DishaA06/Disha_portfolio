@@ -145,6 +145,8 @@ document.addEventListener("click", (e) => {
   ) {
     closeAboutPopups();
   }
+//////////NEW ADDITION
+  let artworkJustOpened = false;
 
   if (
     artworkPopup &&
@@ -338,15 +340,23 @@ if (artworkBtn && artworkPopup) {
     e.stopPropagation();
     if (artworkPopup.style.display === "block") return;
 
+    artworkJustOpened = true; // ✅ ADD THIS
+
     artworkPopup.style.display = "block";
     requestAnimationFrame(() => {
       artworkPopup.style.opacity = "1";
       artworkPopup.style.transform = "scale(1)";
     });
+
+    // reset flag AFTER this click cycle
+    setTimeout(() => {
+      artworkJustOpened = false;
+    }, 0);
   });
 
   artworkPopup.addEventListener("click", e => e.stopPropagation());
 }
+
 
 document.addEventListener("click", (e) => {
   if (
@@ -358,7 +368,7 @@ document.addEventListener("click", (e) => {
     animateClose(artworkPopup);
   }
 });
-
+/////////////////////////////////////////////////////////////////////////////
 /* ================= CONTACT POPUP ================= */
 contactBtn = document.getElementById("contact-label");
 contactPopup = document.getElementById("popup-contact");
@@ -437,28 +447,28 @@ const projectData = {
   desc: "ZBOT is an AI-powered chatbot designed to deliver personalized and context-aware interactions. It focuses on creating smooth conversational flows while handling user queries efficiently. The project explores how AI can be used to automate responses, enhance user engagement, and build intelligent virtual assistants with real-world applicability.",
   img: "assets/zbot.png",
   github: "https://github.com/DishaA06/ZBOT",
-  demo: "https://yourdemo.link"
+  // demo: "https://yourdemo.link"
 },
   mclaren: {
     title: "McLaren Website",
     desc: "A high-fidelity frontend website inspired by McLaren’s design language and branding. This project focuses on clean layouts, smooth animations, and a premium user experience. It showcases attention to detail in UI design and responsiveness while translating a real-world brand’s aesthetic into a functional web interface.",
     img: "assets/mclaren.png",
     github: "https://github.com/DishaA06/CAR-WEBSITE-",
-    demo: "https://yourdemo.link"
+    // demo: "https://yourdemo.link"
   },
   floatchat: {
     title: "FloatChat",
     desc: "FloatChat is a frontend user interface for a floating, real-time chat application. The project emphasizes intuitive UI, accessibility, and seamless user interaction. It demonstrates how modern frontend principles can be used to build lightweight, interactive chat components that enhance communication without interrupting the user experience.",
     img: "assets/floatchat.png",
     github: "https://github.com/DishaA06/FLOATCHAT",
-    demo: "https://yourdemo.link"
+    // demo: "https://yourdemo.link"
   },
   code_complexity_analyser: {
     title: "Code Complexity Analyser",
     desc: "Galactic Code Complexity Analyzer is a developer-focused tool designed to analyze and visualize the complexity of codebases. It helps identify highly complex sections of code, making it easier to understand, optimize, and maintain projects. The tool emphasizes clarity, usability, and meaningful insights, showcasing how analytical thinking and clean UI can come together to support better software development decisions.",
     img: "assets/code_complexity_analyser.png",
     github: "https://github.com/DishaA06/code_complexity_analyzer",
-    demo: "https://yourdemo.link"
+    // demo: "https://yourdemo.link"
   }
 };
 

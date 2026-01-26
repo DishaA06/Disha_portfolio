@@ -902,5 +902,24 @@ body {
 }
 
 
+.resume-icon img {
+  
+  position: fixed;
+  bottom: 30px;
+  left: 1315px;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.resume-icon:hover img {
+  
+  transform: scale(1.2);
+  filter: invert(84%) sepia(21%) saturate(620%) hue-rotate(190deg) brightness(98%) contrast(92%);
+
+}
+
+
 
 .popup-window:active { cursor: grabbing; } 
